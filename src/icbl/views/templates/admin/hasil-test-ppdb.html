@@ -1,0 +1,65 @@
+{% extends "icbl/views/templates/base.html" %}
+
+{% block content %}
+    <script>var vno=1</script>
+    <h4 align="center">HASIL TEST PAKET {{paket}}</h4>
+    <h4 align="center">{{sekolah}}</h4>
+    <table border="1" align="center" style="font-size: x-small" name="hasilTo" id="hasilTo">
+
+        <tr>
+          <td rowspan="2" align="center">NO</td>
+          <td rowspan="2" align="center">NIS</td>
+          <td rowspan="2" align="center">NAMA</td>
+          <td rowspan="2" align="center">KELAS</td>
+          <td align="center" colspan="4">MATEMATIKA</td>
+          <td align="center" colspan="4">SAINS</td>
+          <td align="center" colspan="4">INDONESIA</td>
+          <td align="center" colspan="4">INGGRIS</td>
+          <td rowspan="2">TOTAL</td></tr>
+        <tr>
+            <td align="center">B</td>
+            <td align="center">S</td>
+            <td align="center">K</td>
+            <td align="center">NIL</td>
+            <td align="center">B</td>
+            <td align="center">S</td>
+            <td align="center">K</td>
+            <td align="center">NIL</td>
+            <td align="center">B</td>
+            <td align="center">S</td>
+            <td align="center">K</td>
+            <td align="center">NIL</td>
+            <td align="center">B</td>
+            <td align="center">S</td>
+            <td align="center">K</td>
+            <td align="center">NIL</td>
+        </tr>
+        {% for datum in data %}
+        <tr>
+            <td align="center"><script>document.write(vno)</script></td>
+            <td align="center">{{datum.nis}}</td>
+            <td>{{datum.nama}}</td>
+            <td align="center">{{datum.kelas}}</td>
+            <td align="center">{{datum.Bmat}}</td>
+            <td align="center">{{datum.Smat}}</td>
+            <td align="center">{{datum.Kmat}}</td>
+            <td align="right">{{datum.nmat}}</td>
+            <td align="center">{{datum.Bipa}}</td>
+            <td align="center">{{datum.Sipa}}</td>
+            <td align="center">{{datum.Kipa}}</td>
+            <td align="rignt">{{datum.nipa}}</td>
+            <td align="center">{{datum.Bind}}</td>
+            <td align="center">{{datum.Sind}}</td>
+            <td align="center">{{datum.Kind}}</td>
+            <td align="right">{{datum.nind}}</td>
+            <td align="center">{{datum.Bing}}</td>
+            <td align="center">{{datum.Sing}}</td>
+            <td align="center">{{datum.King}}</td>
+            <td align="right">{{datum.ning}}</td>
+            <td align="right">{{datum.ntot}}</td>
+        </tr>
+        <script>vno=vno+1</script>
+        {% endfor %}
+    </table>
+
+{% endblock %}

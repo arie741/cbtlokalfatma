@@ -1,0 +1,23 @@
+{% extends "icbl/views/templates/base.html" %}
+
+{% block content %}
+
+    <div class="container">
+      <div class="row">
+        <h2 class="text-primary" align="center">
+          Masukkan Kode Test!
+        </h2>
+      </div>
+      <form method="POST" action="/admin-hitung-ulang-hasil">
+        <div class="row">
+          <div align="center">
+            <input type="text" name="kode" />
+          </div>
+          <br>
+          <div align="center">
+            <input type="submit" class="btn btn-primary" value="HITUNG ULANG"/>
+          </div>
+        </div>
+      </form>
+    </div>
+{% endblock %}

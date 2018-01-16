@@ -1,0 +1,17 @@
+{% extends "icbl/views/templates/base.html" %}
+
+{% block content %}
+    <h2 align="center">DAFTAR KELAS</h2>
+    <h3 align="center">Klik nomer untuk mengedit nama kelas!</h3>
+    <form method="POST" action="/admin-edit-kelas">
+    <table border="1" align="center">
+        <tr><td>KODE</td><td>NAMA KELAS</td></tr>
+        {% for datum in data %}
+        <tr>
+            <td><input type="submit" name="nomer" value="{{datum.nomer}}" /></td>
+            <td>{{datum.namakelas}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    </form>
+{% endblock %}

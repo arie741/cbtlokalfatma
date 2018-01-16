@@ -1,0 +1,25 @@
+{% extends "icbl/views/templates/base.html" %}
+
+{% block content %}
+    <script>
+        vno=1;
+    </script>
+    <h3 align="center">HASIL ABS TINGKAT KESULITAN</h3>
+    <h4 align="center">Pelajaran: {{pelajaran}}, Proset: {{paket}}, Kode Soal: {{kode}}</h4>
+    <h4 align="center">Jumlah Peserta: {{peserta}} orang</h4>
+    <form method="POST" action="/teacher-lihat-soal" target="_blank">
+    <table border="1" align="center">
+        <tr><td>No</td><td>TINGKAT KESULITAN</td></tr>
+        {% for hsl in hasil %}
+        <tr>
+            <td><script>document.write('<input type="submit" name="nomer" value="'+vno+'">');</script></td>
+
+               <td>{{hsl}}</td>
+
+        </tr>
+        <script>vno+=1</script>
+        {% endfor %}
+    </table>
+    <input type="hidden" name="kode" value="{{kode}}">
+    </form>
+{% endblock %}

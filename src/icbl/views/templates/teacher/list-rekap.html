@@ -1,0 +1,17 @@
+{% extends "icbl/views/templates/base.html" %}
+
+{% block content %}
+    <h2 align="center">DAFTAR REKAPITULASI</h2>
+    <h3 align="center">Klik KODE untuk memilih rekapitulasi!</h3>
+    <form method="POST" action="{{action}}">
+    <table border="1" align="center">
+        <tr><td>KODE</td><td>subjek</td></tr>
+        {% for datum in data %}
+        <tr>
+            <td><input type="submit" name="kode" value="{{datum.kode}}" /></td>
+            <td>{{datum.subjek}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    </form>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends "icbl/views/templates/base.html" %}
+
+{% block content %}
+    <script>
+        function kirim(){
+            document.pf.pass1.value=document.getElementById('oldpass').value;
+            document.pf.pass2.value=document.getElementById('newpass').value;
+            document.getElementById("pf").submit();
+        }
+    </script>
+    <div class="container-fluid">
+        <div class="form-group">
+          <label for="pwdl">Password Lama:</label>
+          <input type="password" class="form-control" id="oldpass">
+        </div>
+        <div class="form-group">
+          <label for="pwdb">Password Baru:</label>
+          <input type="password" class="form-control" id="newpass">
+        </div>
+        <button type="button" class="btn btn-primary" onClick="kirim()">KIRIM</button>
+        <div>{{error}}</div>
+    </div>
+    <form method="POST" action="/teacher-ganti-pw" name="pf" id="pf">
+        <input type="hidden" name="pass1">
+        <input type="hidden" name="pass2">
+    </form>
+{% endblock %}

@@ -1,0 +1,79 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ujian Sekolah Berbasis Komputer</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap.theme.css" rel="stylesheet">
+    <script src="jquery/jquery-1.12.2.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+</head>
+<body>
+{% block header %}
+{% if user %}
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">GURU</a>
+    </div>
+    <div>
+      <ul class="nav navbar-nav">
+        <li><a href="/teacher-home">Home</a></li>
+        <li><a href="/teacher-hasil-test">Hasil Test</a></li>
+
+        <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Analisis Butir Soal<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="/teacher-abs">Distribusi Benar-Salah-Kosong</a></li>
+              <li><a href="/teacher-abs-tk">Tingkat Kesulitan</a></li>
+              <li><a href="/teacher-abs-dp">Daya Pembeda</a></li>
+              <li><a href="/teacher-dayakecoh">Daya Kecoh</a></li>
+            </ul>
+        </li>
+        <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Simpan ke Excel<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="/teacher-hasil-test-excel">Hasil Test</a></li>
+              <li><a href="#">Analisis butir soal</a></li>
+              <li><a href="/teacher-abs-excel"> - Distribusi B-S-K</a></li>
+              <li><a href="/teacher-abs-tk-excel"> - Tingkat Kesulitan</a></li>
+              <li><a href="/teacher-abs-dp-excel"> - Daya Pembeda</a></li>
+              <li><a href="/teacher-adk-excel"> - Daya kecoh</a></li>
+            </ul>
+        </li>
+        <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">SET SOAL<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="/teacher-buat-proset">Daftarkan Set Soal</a></li>
+              <li><a href="/teacher-lihat-proset">Lihat/Edit Set Soal</a></li>
+              <li><a href="/teacher-upload-file">Upload File</a></li>
+              <li><a href="/teacher-edit-kunci">Buat/Edit Kunci</a></li>
+              <li><a href="/teacher-lihat-soal">Lihat Soal per soal</a></li>
+              <li><a href="/teacher-lihat-sekaligus">Lihat Soal Sekaligus</a></li>
+              <li><a href="/teacher-hapus-set">HAPUS SET SOAL!</a></li>
+            </ul>
+        </li>
+        <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">REKAP<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="/teacher-rekap-test">BUAT REKAP TEST</a></li>
+              <li><a href="/teacher-edit-rekap">Lihat/Edit REKAP TEST</a></li>
+              <li><a href="/teacher-hasil-rekap">HASIL REKAP</a></li>
+            </ul>
+        </li>
+        <li><a href="/teacher-ganti-pw">Ganti password</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="/teacher-logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+{% endif %}
+{% endblock %}
+
+{% block content %}
+{% endblock %}
+
+</body>
+</html>

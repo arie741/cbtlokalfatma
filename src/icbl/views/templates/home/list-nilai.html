@@ -1,0 +1,49 @@
+{% extends "icbl/views/templates/basebg.html" %}
+
+{% block content %}
+
+    <style>
+      table {
+        background-color: #FFFFFF;
+      }
+      .bsubmit {
+        width: 80px;
+        background-color: #FFFFFF;
+        border-style: none;
+      }
+    </style>
+
+
+    <h2 align="center">HASIL TEST</h2>
+    <form method="POST" action="/home-detail-set">
+    <table border="1" align="center">
+        <tr>
+          <td>Tanggal</td>
+          <td>Kode Soal</td>
+          <td>Keterangan</td>
+          <td>Nilai</td>
+        </tr>
+        {% for datum in data %}
+        <tr>
+            <td><script>document.write('{{datum.stanggal}}'.substring(0,10))</script></td>
+            <td><input type="submit" class="bsubmit" name="kode" value="{{datum.kode}}" /></td>
+            <td>{{datum.keterangan}}</td>
+            <td>{{datum.nilai}}</script></td>
+        </tr>
+        {% endfor %}
+    </table>
+    </form>
+    <form method="POST" action="/home-ganti-pw" name="pf5" id="pf5">
+    </form>
+    <form method="POST" action="/home-lihat-hasil" name="pf1" id="pf1">
+    </form>
+    <form method="POST" action="/home-sim-sbmptn" name="pf3" id="pf3">
+    </form>
+    <form method="POST" action="/home-input-nomer" name="pf4" id="pf4">
+    </form>
+    <form method="POST" action="/home-sim-ppdb" name="pf2" id="pf2">
+    </form>
+    </form>
+    <form method="POST" action="/home-logout" name="pf6" id="pf6">
+    </form>
+{% endblock %}

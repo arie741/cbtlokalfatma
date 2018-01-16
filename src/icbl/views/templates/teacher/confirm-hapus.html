@@ -1,0 +1,29 @@
+{% extends "icbl/views/templates/base.html" %}
+
+{% block content %}
+<script>
+
+    function kirim(tekan){
+       var vtekan="N";
+       if (tekan == 2){
+         vtekan="Y";
+       }
+       document.pf.yn.value=vtekan;
+       document.getElementById("pf").submit();
+    }
+</script>
+<div class="container">
+<h4 align="center">Set Soal dengan kode:{{kode}} - {{pelajaran}} - {{keterangan}} akan dihapus!</h4>
+<div class="row" align="center">
+  <button type="button" class="btn btn-primary" onClick="kirim(1)">BATAL</button>
+  <button type="button" class="btn btn-danger" onClick="kirim(2)">HAPUS</button>
+</div>
+<div>
+  <form method="post" action="/teacher-confirm-fback" name="pf" id="pf">
+    <input type="hidden" name="kode" value={{kode}}>
+    <input type="hidden" name="yn">
+  </form>
+</div>
+</div>
+
+{% endblock %}

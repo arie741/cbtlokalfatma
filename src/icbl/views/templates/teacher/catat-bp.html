@@ -1,0 +1,46 @@
+{% extends "icbl/views/templates/base.html" %}
+
+{% block content %}
+    <script>
+        function kirim(){
+            document.pf.kode.value=document.getElementById('kode').value;
+            document.getElementById("pf").submit();
+        }
+    </script>
+    <div class="container">
+      <div class="row">
+        <h4 class="text-primary">
+          Ketik Kode Bank Proset !
+        </h4>
+      </div>
+      <div class="row">
+        <div class="col-sm-2" align="right">
+          <h4><strong>Kode:</strong></h4>
+        </div>
+        <div class="col-sm-2">
+          <div class="form-group">
+            <input type="text" class="form-control" id="kode" value="{{kode}}">
+          </div>
+        </div>
+        <div class="col-sm-8"></div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-2">
+          <button type="button" class="btn btn-primary" onClick="kirim()">Kirim</button>
+        </div>
+        <div class="col-sm-8"></div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-2">
+          <div class="bg-danger text-danger">{{error}}</div>
+        </div>
+        <div class="col-sm-8"></div>
+      </div>
+
+    </div>
+    <form method="POST" action="/teacher-catat-bp" name="pf" id="pf">
+        <input type="hidden" name="kode">
+    </form>
+{% endblock %}

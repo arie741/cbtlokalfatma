@@ -1,0 +1,24 @@
+{% extends "icbl/views/templates/base.html" %}
+
+{% block content %}
+<div class="container">
+
+       <h3>Upload File KODE PROSET: {{kode}}</h3>
+
+       <FORM NAME="testform" method="POST" action="/admin-upload" enctype="multipart/form-data">
+          <div class="form-group">
+            <label for="pwdl">Pilih File:</label>
+            <input type="file" name="file" id="file" multiple>
+          </div>
+          <div class="form-group">
+            <input type="submit" value="UPLOAD">
+          </div>
+          <div class="form-group">
+            <input type="hidden" name="kode" value="{{kode}}" />
+            <input type="hidden" name="kodepel" value="{{kodepel}}" />
+          </div>
+
+       </FORM>
+
+</div>
+{% endblock %}

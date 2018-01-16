@@ -1,0 +1,156 @@
+{% extends "icbl/views/templates/base.html" %}
+
+{% block content %}
+<script>
+    var kun='{{kunci}}';
+    var jenis='{{jenis}}';
+    var upto='{{upto}}';
+    var jumsoal={{jsoal}};
+    var ptext=[];
+    var suara=[];
+    {% if pretext %}
+      {% for pt in pretext %} //pretext or wacana
+        ptext.push('{{pt}}');
+      {% endfor %}
+    {% else %}
+      for (i=0;i<jumsoal;i++){ //pretext or wacana
+        ptext.push("-");
+      }
+    {% endif %}
+
+    {% if sound %}
+      {% for sd in sound %} //pretext or wacana
+          suara.push('{{sd}}');
+      {% endfor %}
+    {% else %}
+      for (i=0;i<jumsoal;i++){ //pretext or wacana
+        suara.push("-");
+      }
+    {% endif %}
+
+    function jenis_change(no){
+      var vj=document.getElementById('sel'+no).value;
+      if(vj=="3"){
+        document.getElementById('upto'+no).disabled=false;
+      }else{
+        document.getElementById('upto'+no).value='';
+        document.getElementById('upto'+no).disabled=true;
+      }
+    }
+
+    function kirim(){
+       var kun1='',jen1='',upto1='',ptext1=[],suara1=[];
+       var vc='',vj='',vut='',vpt='',vsuar='';
+       for (i=0;i<{{jsoal}};i++){
+          vc=document.getElementById('jwb' + i).value;
+          if (vc.charCodeAt(0) >= 65 && vc.charCodeAt(0)<=122){
+            vc=vc.toUpperCase();
+          } else {
+            vc="-";
+          }
+          vj=document.getElementById('sel' + i).value;
+          if (vj=="3"){
+            vut=document.getElementById('upto' + i).value;
+            vut=vut.toUpperCase();
+          }else{
+            vut="-";
+          }
+          vpt=document.getElementById('pt' + i).value;
+          if (vpt==""){
+           vpt="-";
+          }
+          vsuar=document.getElementById('suar' + i).value;
+          if (vsuar==""){
+           vsuar="-";
+          }
+          kun1+=vc;
+          jen1+=vj;
+          upto1+=vut;
+          ptext1.push(vpt);
+          suara1.push(vsuar);
+       }
+       document.pf.kunci.value=kun1;
+       document.pf.jenis.value=jen1;
+       document.pf.upto.value=upto1;
+       document.pf.pretext.value=ptext1;
+       document.pf.sound.value=suara1;
+       document.pf.kode.value={{kode}};
+       document.getElementById("pf").submit();
+    }
+</script>
+<div class="container">
+<div class="row" align="center">
+
+<h4>Lihat/Edit Kunci Kode Soal {{kode}}</h4>
+     <table border="1">
+        <tr><td>No.</td><td>Jenis</td><td>S-D</td><td>Kunci</td><td>Wacana</td><td>Suara</td></tr>
+        <script>
+          var cnt='',vkun='',vjen='',vupto='',vptext='',vsuar='';
+          for(i=0;i<{{jsoal}};i++){
+            document.write('<tr id=bar'+i+'></tr>');
+          }
+
+          for(i=0;i<{{jsoal}};i++){
+                vkun=kun.substring(i,i+1);
+                vjen=jenis.substring(i,i+1);
+                vupto=upto.substring(i,i+1);
+                vptext=ptext[i];
+                vsuar=suara[i];
+                cnt+='<td>'+(i+1)+'</td>';
+                cnt+='<td><select onchange=jenis_change('+i+') id=sel'+i+'>';
+                if (vjen=="1"){
+                  cnt+='<option value="1" selected>ABCD</option>';
+                }else{
+                  cnt+='<option value="1">ABCD</option>';
+                }
+                if (vjen=="2"){
+                  cnt+='<option value="2" selected>Benar-Salah</option>';
+                }else{
+                  cnt+='<option value="2">Benar-Salah</option>';
+                }
+                if (vjen=="3"){
+                  cnt+='<option value="3" selected>Menjodohkan</option>';
+                }else{
+                  cnt+='<option value="3">Menjodohkan</option>';
+                }
+                cnt+='</select></td>';
+                if (vjen=="3"){
+                  cnt+='<td><input type="text" size="1" maxlength="1" id=upto'+i+' value='+vupto+'></td>';
+                }else{
+                  cnt+='<td><input type="text" size="1" maxlength="1" id=upto'+i+' disabled></td>';
+                }
+                if (vkun=="-"){
+                   cnt+='<td><input type="text" size="1" maxlength="1" id=jwb'+i+'></td>';
+                }else{
+                   cnt+='<td><input type="text" size="1" maxlength="1" value='+vkun+' id=jwb'+i+'></td>';
+                }
+                if (vptext=="-"){
+                   cnt+='<td><input type="text" size="15" maxlength="15" id=pt'+i+'></td>';
+                }else{
+                   cnt+='<td><input type="text" size="15" maxlength="15" value='+vptext+' id=pt'+i+'></td>';
+                }
+                if (vsuar=="-"){
+                   cnt+='<td><input type="text" size="15" maxlength="15" id=suar'+i+'></td>';
+                }else{
+                   cnt+='<td><input type="text" size="15" maxlength="15" value='+vsuar+' id=suar'+i+'></td>';
+                }
+               document.getElementById('bar'+i).innerHTML=cnt;
+               cnt='';
+           }
+
+       </script>
+    </table>
+    <br>
+    <button type="button" class="btn btn-primary" onClick="kirim()">KIRIM</button>
+  <form method="post" action="{{action}}" name="pf" id="pf">
+    <input type="hidden" name="jenis">
+    <input type="hidden" name="upto">
+    <input type="hidden" name="kunci">
+    <input type="hidden" name="pretext">
+    <input type="hidden" name="sound">
+    <input type="hidden" name="kode">
+
+  </form>
+  </div>
+</div>
+{% endblock %}

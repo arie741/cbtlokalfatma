@@ -1,0 +1,36 @@
+{% extends "icbl/views/templates/basemagang.html" %}
+
+{% block content %}
+    <script>
+        var jsoal={{mdata.jsoal}};
+        var vkunci=[],jwb=[];
+        {% for kun in kunci %}
+           vkunci.push('{{kun}}');
+        {% endfor %}
+
+    </script>
+
+    <h2 align="center">HASIL TEST</h2>
+    <h3 align="center">{{mdata.keterangan}} - kode {{kode}} </h3>
+    <form method="POST" action="/adminmagang-test-detail-siswa">
+    <table border="1" align="center" style="font-size: x-small" name="hasilTo" id="hasilTo">
+
+        <tr><td align="center">NIS</td><td align="center">NAMA</td>
+          <td align="center">KELAS</td>
+          <td>NILAI</td>
+        </tr>
+
+        {% for datum in data %}
+        <tr>
+            <td><input type="submit" name="nis" value="{{datum.nis}}" /></td>
+            <td>{{datum.nama}}</td>
+            <td>{{datum.kelas}}</td>
+            <td>{{datum.nilai}}</td>
+
+        </tr>
+        {% endfor %}
+    </table>
+    <input type="hidden" name="kode" value="{{kode}}" />
+    </form>
+
+{% endblock %}

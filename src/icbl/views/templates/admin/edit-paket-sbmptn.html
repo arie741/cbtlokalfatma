@@ -1,0 +1,97 @@
+{% extends "icbl/views/templates/base.html" %}
+
+{% block content %}
+<script>
+        function update(){
+            document.pf.ket.value=document.getElementById('ket').value;
+            document.pf.tkpa.value=document.getElementById('tkpa').value;
+            document.pf.ipaorips.value=document.getElementById('ipaorips').value;
+            document.pf.kelompok.value=document.getElementById('kelompok').value;
+            document.getElementById("pf").submit();
+        }
+  function hapus(){
+    document.getElementById("pf1").submit();
+  }
+</script>
+<div class="container-fluid">
+  <div class="row">
+     <div class="col-sm-2">
+        <h5 class="text-right">Nama Paket:</h5>
+     </div>
+     <div class="col-sm-5">
+        <div class="form-group">
+          <input type="text" class="form-control" id="ket" value="{{datum.keterangan}}">
+        </div>
+     </div>
+     <div class="col-sm-5"></div>
+  </div>
+  <div class="row">
+     <div class="col-sm-2">
+        <h5 class="text-right">Kode Soal TKPA</h5>
+     </div>
+     <div class="col-sm-5">
+        <div class="form-group">
+          <input type="text" class="form-control" id="tkpa" value="{{datum.kodetkpa}}">
+        </div>
+     </div>
+     <div class="col-sm-5"></div>
+  </div>
+  <div class="row">
+     <div class="col-sm-2">
+        <h5 class="text-right">Kode Soal Sains/Soshum</h5>
+     </div>
+     <div class="col-sm-5">
+        <div class="form-group">
+          <input type="text" class="form-control" id="ipaorips" value="{{datum.kodeipaorips}}">
+        </div>
+     </div>
+     <div class="col-sm-5"></div>
+  </div>
+  <div class="row">
+     <div class="col-sm-2">
+        <h5 class="text-right">Kelompok</h5>
+     </div>
+     <div class="col-sm-5">
+        <div class="form-group">
+          <select name="kelompok" id="kelompok">
+             {% if datum.kelompok = 1 %}
+                <option value="1" selected>IPA</option>
+                <option value="2">IPS</option>
+             {% else %}
+                <option value="1">IPA</option>
+                <option value="2" selected>IPS</option>
+             {% endif %}
+          </select>
+        </div>
+     </div>
+     <div class="col-sm-5"></div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-sm-2 text-right"></div>
+    <div class="col-sm-3">
+      <button class="btn btn-primary" type="submit" onClick="update()">
+        UPDATE PAKET SBMPTN
+       </button>
+    </div>
+    <div class="col-sm-3">
+      <button class="btn btn-danger" type="submit" onClick="hapus()">
+        DELETE PAKET SBMPTN!
+       </button>
+    </div>
+    <div class="col-sm-2"></div>
+  </div>
+</div>
+<form method="POST" action="/admin-update-paket-sbmptn" name="pf" id="pf">
+    <input type="hidden" name="kode" value="{{datum.kode}}">
+    <input type="hidden" name="ket">
+    <input type="hidden" name="tkpa">
+    <input type="hidden" name="ipaorips">
+    <input type="hidden" name="kelompok">
+</form>
+<form method="POST" action="/admin-delete-paket-sbmptn" name="pf1" id="pf1">
+    <input type="hidden" name="kode" value="{{datum.kode}}">
+</form>
+
+{% endblock %}

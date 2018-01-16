@@ -1,0 +1,75 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ujian Sekolah Berbasis Komputer</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap.theme.css" rel="stylesheet">
+    <script src="jquery/jquery-1.12.2.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="css/custom.css">
+</head>
+<body>
+{% block header %}
+{% if user %}
+{% if status = 4 %}
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">ADMIN-MAGANG</a>
+    </div>
+    <div>
+      <ul class="nav navbar-nav">
+        <li><a href="/adminmagang-home">Home</a></li>
+        <li><a href="/adminmagang-hasil-test">Hasil Test</a></li>
+
+        <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Edit Data<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Siswa</a></li>
+              <li><a href="/adminmagang-registrasi-siswa">- Registrasi Peserta</a></li>
+              <li><a href="/adminmagang-edit-siswa">- Lihat/Edit Data Peserta</a></li>
+              <li><a href="/adminmagang-delete-siswa">- Hapus Peserta</a></li>
+              <li><a href="#">Pelajaran</a></li>
+              <li><a href="/adminmagang-edit-pelajaran">- Edit Pelajaran</a></li>
+              <li><a href="/adminmagang-tambah-pelajaran">- Tambah Pelajaran</a></li>
+              <li><a href="#">Sekolah</a></li>
+              <li><a href="/adminmagang-edit-sekolah">- Edit Sekolah</a></li>
+              <li><a href="/adminmagang-tambah-sekolah">- Tambah Sekolah</a></li>
+              <li><a href="/ganti-pw-adminmagang">Ganti PW Admin-Magang</a></li>
+            </ul>
+        </li>
+
+        <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Set Soal Magang<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="/adminmagang-buat-proset">Daftarkan Set Soal</a></li>
+              <li><a href="/adminmagang-upload-file">Upload File</a></li>
+              <li><a href="/adminmagang-edit-kunci">Edit Kunci dan Tautan Soal</a></li>
+              <li><a href="/adminmagang-edit-set-soal">Lihat/Edit Set Soal</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="/adminmagang-lihat-soal">Lihat Soal per soal</a></li>
+              <li><a href="/adminmagang-lihat-sekaligus">Lihat Soal Sekaligus</a></li>
+              <li role="separator" class="divider"></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="/adminmagang-hapus-set">HAPUS SET SOAL!</a></li>
+            </ul>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="/adminmagang-logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+      </ul>
+    </div>
+
+  </div>
+</nav>
+{% endif %}
+{% endif %}
+{% endblock %}
+
+{% block content %}
+{% endblock %}
+
+</body>
+</html>

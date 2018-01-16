@@ -1,0 +1,61 @@
+{% extends "icbl/views/templates/basebg.html" %}
+{% block content %}
+<div class="panel panel-info">
+    <div class="panel-heading">
+      <h2 class="text-center">
+      Selamat Datang {{nama}} !
+      </h2>
+    </div>
+  </div>
+<div class="panel panel-default">
+    <div class="panel-body">
+      <div class="row">
+        <div align="center">
+          <div class="text-default">
+            <h4>
+              Nilai Matematika: {{nmat}}<br>
+              Nilai Sains: {{nipa}}<br>
+              Nilai Bahasa Indonesia: {{nind}}<br>
+              Nilai Bahasa Inggris: {{ning}}<br>
+              Nilai total: {{ntot}}
+            </h4>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div align="center">
+          <div class="text-default">
+          <form method="POST" action="/home-next-daerah">
+            <select name="kode">
+              {% for dae in daerah %}
+                 <option id="{{dae.kode}}" value="{{dae.kode}}">{{dae.daerah}}</option>
+              {% endfor %}
+            </select>
+            <input type="submit" class="btn btn-success" value="KIRIM" />
+            <input type="hidden" name="ntot" value="{{ntot}}" />
+            <input type="hidden" name="nmat" value="{{nmat}}" />
+            <input type="hidden" name="nipa" value="{{nipa}}" />
+            <input type="hidden" name="nind" value="{{nind}}" />
+            <input type="hidden" name="ning" value="{{ning}}" />
+          </form>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div align="center">
+          <div class="text-default">
+            Sekolah yang lulus di daerah {{wilayah}}<br>
+            <table border="1">
+              <tr><td>Sekolah</td><td>Prediksi PG</td></tr>
+              {% for sek in sekolah %}
+              <tr><td>{{sek.sekolah}}</td><td>{{sek.nm}}</td></tr>
+              {% endfor %}
+            </table>
+          </div>
+        </div>
+      </div>
+  </div>
+  <script>document.getElementById('{{kodedaerah}}').selected="true";</script>
+</div>
+{% endblock %}

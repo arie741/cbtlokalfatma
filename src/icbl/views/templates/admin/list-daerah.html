@@ -1,0 +1,17 @@
+{% extends "icbl/views/templates/base.html" %}
+
+{% block content %}
+    <h3 align="center">DAFTAR DAERAH</h3>
+    <h4 align="center">Klik KODE untuk aksi lebih lanjut!</h4>
+    <form method="POST" action="/admin-edit-daerah-ppdb">
+    <table border="1" align="center">
+        <tr><td>NAMA SMA</td><td>Prediksi PG</td></tr>
+        {% for datum in data %}
+        <tr>
+            <td><input type="submit" name="kode" value="{{datum.kode}}" /></td>
+            <td>{{datum.daerah}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    </form>
+{% endblock %}

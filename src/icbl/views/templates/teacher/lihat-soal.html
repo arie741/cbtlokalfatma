@@ -1,0 +1,18 @@
+<html>
+<head>
+    <title>Soal TEST</title>
+    <link rel="stylesheet" href="css/custom.css" />
+</head>
+
+<body>
+    <h>Soal Nomer: {{nomer}}</h>
+    <div id="soal"></div>
+    <script>
+       var path='{{path}}';
+       var vtag='';
+       vtag=path + '/{{tabel}}/' + '{{id}}' + '/' + '{{postkode}}' + '/' + '{{nomer}}' + '.png';
+       document.getElementById('soal').innerHTML='<div><img src='+vtag+'></div>';
+    </script>
+</body>
+
+</html>

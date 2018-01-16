@@ -1,0 +1,71 @@
+{% extends "icbl/views/templates/base.html" %}
+
+{% block content %}
+
+    <div class="container">
+      <div class="row">
+        <h4 class="text-primary">
+          TAMBAH PAKET SBMPTN!
+        </h4>
+      </div>
+      <form method="POST" action="/admin-tambah-paket-sbmptn">
+      <div class="row">
+         <div class="col-sm-2">
+           <h5 class="text-right">Nama Paket</h5>
+         </div>
+         <div class="col-sm-3">
+           <div class="form-group">
+              <input type="text" class="form-control"  name="ket" />
+           </div>
+         </div>
+        <div class="col-sm-7"></div>
+        </div>
+      <div class="row">
+         <div class="col-sm-2">
+           <h5 class="text-right">Kode Soal TKPA</h5>
+         </div>
+         <div class="col-sm-3">
+           <div class="form-group">
+              <input type="text" class="form-control"  name="tkpa" />
+           </div>
+         </div>
+         <div class="col-sm-7"></div>
+      </div>
+      <div class="row">
+         <div class="col-sm-2">
+           <h5 class="text-right">Kode Soal SAINS/SOSHUM</h5>
+         </div>
+         <div class="col-sm-3">
+           <div class="form-group">
+              <input type="text" class="form-control" name="jurusan" />
+           </div>
+         </div>
+         <div class="col-sm-7"></div>
+      </div>
+      <div class="row">
+         <div class="col-sm-2">
+           <h5 class="text-right">Kelompok</h5>
+         </div>
+         <div class="col-sm-3">
+           <div class="form-group">
+              <select name="kelompok">
+                <option value="1">IPA</option>
+                <option value="2">IPS</option>
+             </select>
+           </div>
+         </div>
+         <div class="col-sm-7"></div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-2">
+           <div class="form-group">
+              <input type="submit" class="btn btn-primary" value="SUBMIT"/>
+           </div>
+        </div>
+        <div class="col-sm-8"></div>
+      </div>
+    </form>
+</div>
+{% endblock %}

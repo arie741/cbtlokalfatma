@@ -1,0 +1,18 @@
+{% extends "icbl/views/templates/base.html" %}
+
+{% block content %}
+    <h2 align="center">DAFTAR SEKOLAH</h2>
+    <h3 align="center">Klik KODE untuk mengedit sekolah!</h3>
+    <form method="POST" action="/admin-edit-sekolah">
+    <table border="1" align="center">
+        <tr><td>KODE</td><td>NAMA SEKOLAH</td><td>NPSN</td></tr>
+        {% for datum in data %}
+        <tr>
+            <td><input type="submit" name="kode" value="{{datum.kode}}" /></td>
+            <td>{{datum.nasek}}</td>
+            <td>{{datum.npsn}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    </form>
+{% endblock %}

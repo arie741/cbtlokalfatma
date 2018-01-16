@@ -1,0 +1,213 @@
+{% extends "icbl/views/templates/basebg.html" %}
+
+{% block content %}
+<script>
+    var path='{{path}}';
+    var vid='{{user}}';
+    var vkat='{{kategori}}';
+    var vkunci='{{datum.kunci}}';
+    var ns=[];
+    {% for vns in nsoal %}
+        ns.push({{vns}});
+    {% endfor %}
+    var no=1;
+    var jsoal={{datum.jsoal}};
+    var jwaktu={{datum.waktu}}*60;
+    var kode='{{datum.kode}}';
+    var jwb =[];
+    var npt=[],nsou=[];
+
+    {% if npretext %}
+      {% for vpt in npretext %} //pretext or wacana
+        npt.push('{{vpt}}');
+      {% endfor %}
+    {% else %}
+      for (i=0;i<jumsoal;i++){ //pretext or wacana
+        npt.push("-");
+      }
+    {% endif %}
+
+    {% if nsound %}
+      {% for vsou in nsound %} //pretext or wacana
+          nsou.push('{{vsou}}');
+      {% endfor %}
+    {% else %}
+      for (i=0;i<jumsoal;i++){ //pretext or wacana
+        nsou.push("-");
+      }
+    {% endif %}
+
+    for (i=0;i<jsoal;i++){
+        jwb[i]=vkunci.substring (i,i+1);
+    }
+
+
+    function wDOM(id,cnt){
+        document.getElementById(id).innerHTML=cnt;
+    }
+
+    function func(jw){
+        var vno=no-1;
+        var so="o"+vno;
+        var cnt=no+" ("+jw+")";
+        wDOM(so,cnt);
+        jwb[vno]=jw;
+    }
+
+    function get_resp(urla,funct)
+            {
+            var xmlhttp;
+            if (window.XMLHttpRequest)
+              {// code for IE7+, Firefox, Chrome, Opera, Safari
+              xmlhttp=new XMLHttpRequest();
+              }
+            else
+              {// code for IE6, IE5
+              xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+              }
+            xmlhttp.onreadystatechange=function()
+              {
+              if (xmlhttp.readyState==4 && xmlhttp.status==200)
+                {
+                    funct(xmlhttp.responseText);
+                }
+              }
+            xmlhttp.open("GET",urla,true);
+            xmlhttp.send();
+            }
+
+      function get_soal(urla)
+            {
+            var xmlhttp;
+            if (window.XMLHttpRequest)
+              {// code for IE7+, Firefox, Chrome, Opera, Safari
+              xmlhttp=new XMLHttpRequest();
+              }
+            else
+              {// code for IE6, IE5
+              xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+              }
+            xmlhttp.onreadystatechange=function()
+              {
+              if (xmlhttp.readyState==4 && xmlhttp.status==200)
+                {
+                document.getElementById("soal").innerHTML=xmlhttp.responseText;
+                if (jwb[no-1] !== "-"){
+                    document.getElementById(jwb[no-1]).checked=true;
+                    }
+                }
+              }
+            xmlhttp.open("GET",urla,true);
+            xmlhttp.send();
+            }
+
+     function get_soal1(urla) {
+        if (npt[no-1] != "-"){
+          urla_pretext = path + '/bankproset/'+ '{{datum.kodepel}}' + '/' + {{datum.kode}} + '/' + npt[no-1] + '.png';
+          //urla_pretext = path + '/' + {{datum.kode}} + '/' + npt[no-1] + '.png';
+          document.getElementById("pretext").innerHTML='<div><img src='+urla_pretext+'></div>';
+        }else{
+          document.getElementById("pretext").innerHTML='<div></div>';
+        }
+        // Sound atawa Suara
+        if (nsou[no-1] != "-"){
+          urla_sound = path + '/bankproset/'+ '{{datum.kodepel}}' + '/' + {{datum.kode}} + '/' + nsou[no-1];
+          document.getElementById("sound").innerHTML='<div><audio src='+urla_sound+' controls></div>';
+        }else{
+          document.getElementById("sound").innerHTML='<div></div>';
+        }
+        document.getElementById("soal").innerHTML='<div><img src='+urla+'></div>';
+        document.getElementById("jawab").innerHTML='<div>'+ jwb[no-1] +'</div>';
+     }
+
+    function fback(){
+      var vno=0;
+      if (no>1){
+        no-=1;vno=no-1;
+        if (vkat == "1"){
+          get_soal1(path + '/bankproset/'+ '{{datum.kodepel}}' + '/' + {{datum.kode}} + '/' + ns[vno] + '.png');
+        }else{
+          get_soal('/soal/'+kode+'/'+ns[vno]+'.html');
+        }
+        document.getElementById("o"+vno).selected = "true";
+        document.getElementById("xdarit").innerHTML = no+" dari "+jsoal;
+      }
+    }
+    function fnext(){
+      var vno=0;
+      if (no<jsoal){
+        no+=1;vno=no-1;
+        if (vkat == "1"){
+          get_soal1(path + '/bankproset/'+ '{{datum.kodepel}}' + '/' + {{datum.kode}} + '/' + ns[vno] + '.png');
+        }else{
+          get_soal('/soal/'+kode+'/'+ns[vno]+'.html');
+        }
+        document.getElementById("o"+vno).selected = "true";
+        document.getElementById("xdarit").innerHTML = no+" dari "+jsoal;
+      }
+    }
+    function ganti_nomer(){
+        var vno=document.getElementById("selno").value;
+        no=parseInt(vno)+1;
+        if (vkat == "1"){
+          get_soal1(path + '/bankproset/'+ '{{datum.kodepel}}' + '/' + {{datum.kode}} + '/' + ns[no-1] + '.png');
+        }else{
+          get_soal('/soal/'+kode+'/'+ns[no-1]+'.html');
+        }
+        document.getElementById("o"+vno).selected = "true";
+        document.getElementById("xdarit").innerHTML = no+" dari "+jsoal;
+    }
+
+
+</script>
+<div class="panel panel-default">
+
+
+   <h4 align="center" id="title">UJIAN SEKOLAH - {{user}}</h4>
+   <h4 align="center">Kode: {{kode}} - {{datum.keterangan}}</h4>
+   <div class="row">
+     <div class="col-sm-4"></div>
+      <div class="col-sm-1">
+       <select id="selno"  onchange="ganti_nomer()" >
+               <script>
+                   for (i=0;i<jsoal;i++){
+                       document.write('<option id="o'+i+'" value='+i+'>'+(i+1)+' ('+jwb[i]+')</option>');
+                   }
+               </script>
+      </select>
+     </div>
+     <div class="col-sm-2">
+     <div class="panel panel-primary">
+         <div class="panel-body  text-center" id="xdarit">
+            1 dari {{datum.jsoal}}
+         </div>
+       </div>
+    </div>
+    <div class="col-sm-5"></div>
+  </div>
+   <div id="pretext" align="center"></div>
+   <div id="sound" align="center"></div>
+   <div id="soal" align="center"></div>
+   <div><h3 id="jawab" align="center"></h3></div>
+
+<script>
+    if (vkat == "1") {
+      get_soal1(path + '/bankproset/'+ '{{datum.kodepel}}' + '/' + {{datum.kode}} + '/' + ns[0] + '.png');
+    } else {
+      get_soal('/soal/'+kode+'/'+ns[0]+'.html');
+    }
+</script>
+<div class="row" align="center">
+  <br/>
+  <div class="btn-group">
+  <button class="btn btn-primary" id="back_button" name="button_back" onClick="fback()">BACK</button>
+  <button class="btn btn-primary" id="next_button" name="button_next" onClick="fnext()">NEXT</button>
+  </div>
+  <br><br>
+  <form method="post" action="/home-logout">
+    <input type="submit" class="btn btn-warning" value="SELESAI" />
+  </form>
+</div>
+</div>
+{% endblock %}
+

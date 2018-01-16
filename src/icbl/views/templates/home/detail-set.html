@@ -1,0 +1,27 @@
+{% extends "icbl/views/templates/basebg.html" %}
+
+{% block content %}
+    <style>
+      table {
+        background-color: #FFFFFF;
+      }
+      .bsubmit {
+        width: 80px;
+        background-color: #FFFFFF;
+        border-style: none;
+      }
+    </style>
+
+
+    <div class="panel panel-success">
+    <div class="panel-body">
+      <h2 align="center">HASIL TEST</h2>
+      <h3 align="center">KODE SOAL  : {{ket.kode}}</h3>
+      <h3 align="center">PELAJARAN  : {{ket.pelajaran}}</h3>
+      <h3 align="center">KETERANGAN : {{ket.keterangan}}</h3>
+      <script>
+        document.write('<h3 align="center">NILAI : ' + "{{nilai}}" + '</h3>');
+      </script>
+    </div>
+    </div>
+{% endblock %}

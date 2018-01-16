@@ -1,0 +1,82 @@
+{% extends "icbl/views/templates/base.html" %}
+
+{% block content %}
+<script>
+        function update(){
+            document.pf.kode.value=document.getElementById('kode').value;
+            document.pf.nm.value=document.getElementById('nm').value;
+            document.getElementById("pf").submit();
+        }
+  function hapus(){
+    document.getElementById("pf1").submit();
+  }
+</script>
+<div class="container-fluid">
+  <div class="row">
+     <div class="col-sm-2">
+        <h5 class="text-right">Nama Sekolah:</h5>
+     </div>
+     <div class="col-sm-5">
+        <div class="form-group">
+          <input type="text" class="form-control" id="sekolah" value="{{datasek.sekolah}}" disabled />
+        </div>
+     </div>
+     <div class="col-sm-5"></div>
+  </div>
+  <div class="row">
+     <div class="col-sm-2">
+        <h5 class="text-right">Daerah</h5>
+     </div>
+    <div class="col-sm-5">
+        <div class="form-group">
+           <select id="kode">
+              {% for dae in daerah %}
+                  <script>
+                    if ('{{datasek.kodedaerah}}' == '{{dae.kode}}'){
+                      document.write ('<option value=' + '{{dae.kode}}' + ' selected>' + '{{dae.daerah}}' + '</option>');
+                    }else {
+                      document.write ('<option value=' + '{{dae.kode}}' + '>' + '{{dae.daerah}}' + '</option>');
+                    }
+                  </script>
+              {% endfor %}
+          </select>
+        </div>
+     </div>
+     <div class="col-sm-5"></div>
+  </div>
+  <div class="row">
+     <div class="col-sm-2">
+        <h5 class="text-right">Prediksi PG</h5>
+     </div>
+     <div class="col-sm-5">
+        <div class="form-group">
+          <input type="text" class="form-control" id="nm" value="{{datasek.nm}}">
+        </div>
+     </div>
+     <div class="col-sm-5"></div>
+  </div>
+  <div class="row">
+    <div class="col-sm-2 text-right"></div>
+    <div class="col-sm-3">
+      <button class="btn btn-primary" type="submit" onClick="update()">
+        UPDATE DATA SEKOLAH
+       </button>
+    </div>
+    <div class="col-sm-3">
+      <button class="btn btn-danger" type="submit" onClick="hapus()">
+        DELETE DATA SEKOLAH!
+       </button>
+    </div>
+    <div class="col-sm-2"></div>
+  </div>
+</div>
+<form method="POST" action="/admin-update-sma-ppdb" name="pf" id="pf">
+    <input type="hidden" name="sekolah" value="{{datasek.sekolah}}" />
+    <input type="hidden" name="kode">
+    <input type="hidden" name="nm">
+</form>
+<form method="POST" action="/admin-delete-sma-ppdb" name="pf1" id="pf1">
+    <input type="hidden" name="sekolah" value="{{datasek.sekolah}}" />
+</form>
+
+{% endblock %}

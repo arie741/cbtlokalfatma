@@ -1,0 +1,17 @@
+{% extends "icbl/views/templates/base.html" %}
+
+{% block content %}
+    <h3 align="center">DAFTAR SMA</h3>
+    <h4 align="center">Klik KODE untuk aksi lebih lanjut!</h4>
+    <form method="POST" action="/admin-edit-sma-ppdb">
+    <table border="1" align="center">
+        <tr><td>NAMA SMA</td><td>Prediksi PG</td></tr>
+        {% for datum in data %}
+        <tr>
+            <td><input type="submit" name="sekolah" value="{{datum.sekolah}}" /></td>
+            <td>{{datum.nm}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    </form>
+{% endblock %}

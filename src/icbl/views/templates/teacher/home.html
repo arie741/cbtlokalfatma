@@ -1,0 +1,59 @@
+{% extends "icbl/views/templates/base.html" %}
+
+{% block content %}
+    <script>
+        function kirim(){
+            document.pf.pass.value=document.getElementById('login_password').value;
+            document.pf.id.value=document.getElementById('id').value;
+            document.getElementById("pf").submit();
+        }
+    </script>
+    <div class="container">
+      <div class="row">
+        <h4 class="text-primary">
+          Silakan masukkan id dan kata kunci anda!
+        </h4>
+      </div>
+      <div class="row">
+        <div class="col-sm-2" align="right">
+          <h4><strong>ID Pengguna:</strong></h4>
+        </div>
+        <div class="col-sm-2">
+          <div class="form-group">
+            <input type="text" class="form-control" id="id" value="{{id}}">
+          </div>
+        </div>
+        <div class="col-sm-9"></div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2" align="right">
+          <h4><strong>Kata Sandi:</strong></h4>
+        </div>
+        <div class="col-sm-2">
+          <div class="form-group">
+            <input type="password" class="form-control" id="login_password">
+          </div>
+        </div>
+        <div class="col-sm-8"></div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-2">
+          <button type="button" class="btn btn-primary" onClick="kirim()">Masuk</button>
+        </div>
+        <div class="col-sm-8"></div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-2">
+          <div class="bg-danger text-danger">{{error}}</div>
+        </div>
+        <div class="col-sm-8"></div>
+      </div>
+
+    </div>
+    <form method="POST" action="/teacher-login" name="pf" id="pf">
+        <input type="hidden" name="id">
+        <input type="hidden" name="pass">
+    </form>
+{% endblock %}

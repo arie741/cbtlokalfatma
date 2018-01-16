@@ -1,0 +1,35 @@
+{% extends "icbl/views/templates/base.html" %}
+
+{% block content %}
+
+    <div class="container">
+      <div class="row">
+        <h4 class="text-primary">
+          TAMBAH Daerah!
+        </h4>
+      </div>
+      <form method="POST" action="/admin-tambah-daerah">
+      <div class="row">
+         <div class="col-sm-2">
+           <h5 class="text-right">Nama Daerah</h5>
+         </div>
+         <div class="col-sm-3">
+           <div class="form-group">
+              <input type="text" class="form-control"  name="daerah" />
+           </div>
+         </div>
+        <div class="col-sm-7"></div>
+        </div>
+
+      <div class="row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-2">
+           <div class="form-group">
+              <input type="submit" class="btn btn-primary" value="SUBMIT"/>
+           </div>
+        </div>
+        <div class="col-sm-8"></div>
+      </div>
+    </form>
+</div>
+{% endblock %}

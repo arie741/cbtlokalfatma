@@ -1,0 +1,27 @@
+{% extends "icbl/views/templates/base.html" %}
+
+{% block content %}
+    <h2 align="center">REKAPITULASI RINCI SISWA</h2>
+    <h3 align="center">NAMA: {{nama}} - NIS: {{nis}}</h3>
+    <h3 align="center">NILAI AKHIR: {{ntotal}}</h3>
+    <br>
+    <h3 align="center">TEST YANG DIREKAP</h3>
+    <table border="1" align="center">
+       <tr><td>KODE</td><td>KETERANGAN</td><td>BOBOT</td></tr>
+       {% for tes in dtest %}
+          <tr><td>{{tes.kode}}</td><td>{{tes.keterangan}}</td><td>{{tes.bobot}}%</td></tr>
+       {% endfor %}
+    </table>
+    <h3 align="center">RINCIAN NILAI</h3>
+    <table border="1" align="center">
+        <tr><td>KODE</td><td>NILAI</td><td>NILAI BOBOT</td></tr>
+        {% for datum in dsiswa %}
+        <tr>
+            <td>{{datum.kode}}</td>
+            <td>{{datum.nilai}}</td>
+            <td>{{datum.nbobot}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+{% endblock %}

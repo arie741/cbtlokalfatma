@@ -1,0 +1,42 @@
+{% extends "icbl/views/templates/basemagang.html" %}
+
+{% block content %}
+    <H2>Cari Set Soal berdasarkan Pelajaran dan Kelas</H2>
+    <form method="POST" action="{{act}}">
+    <div class="row">
+         <div class="col-sm-2">
+           <h5 class="text-right">Pelajaran:</h5>
+         </div>
+         <div class="col-sm-3">
+           <div class="form-group">
+              <select id="pel" name="nopel">
+                {% for datum in data %}
+                <option value="{{datum.nomer}}">{{datum.pelajaran}}</option>
+                {% endfor %}
+             </select>
+           </div>
+         </div>
+         <div class="col-sm-7"></div>
+      </div>
+      <div class="row">
+         <div class="col-sm-2">
+           <h5 class="text-right">Keterangan:</h5>
+         </div>
+         <div class="col-sm-5">
+           <div class="form-group">
+              <input type="text" class="form-control" id="ket" name="ket">
+           </div>
+        </div>
+        <div class="col-sm-5"></div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2"></div>
+         <div class="col-sm-5">
+           <div class="form-group">
+              <input type="submit" value="CARI">
+           </div>
+        </div>
+        <div class="col-sm-5"></div>
+      </div>
+</form>
+{% endblock %}

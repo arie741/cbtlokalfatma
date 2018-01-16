@@ -1,0 +1,32 @@
+{% extends "icbl/views/templates/base.html" %}
+
+{% block content %}
+    <script>
+        function kirim(){
+            document.pf.subjek.value=document.getElementById('text-subjek').value;
+            document.getElementById("pf").submit();
+        }
+    </script>
+    <div class="container">
+      <div class="row">
+      <div class="col-md-4">
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label for="id">SUBJEK</label>
+          <input type="text" class="form-control" id="text-subjek" >
+          <br>
+          <button class="btn btn-success" onClick="kirim()">
+             KIRIM
+          </button>
+        </div>
+      <div class="col-md-4">
+      </div>
+      </div>
+      </div>
+    </div>
+
+    <form method="POST" action="/teacher-rekap-test" name="pf" id="pf">
+        <input type="hidden" name="subjek">
+    </form>
+{% endblock %}

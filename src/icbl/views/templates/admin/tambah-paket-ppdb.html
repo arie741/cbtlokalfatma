@@ -1,0 +1,78 @@
+{% extends "icbl/views/templates/base.html" %}
+
+{% block content %}
+
+    <div class="container">
+      <div class="row">
+        <h4 class="text-primary">
+          TAMBAH PAKET PPDB!
+        </h4>
+      </div>
+      <form method="POST" action="/admin-tambah-paket-ppdb">
+      <div class="row">
+         <div class="col-sm-2">
+           <h5 class="text-right">Nama Paket</h5>
+         </div>
+         <div class="col-sm-3">
+           <div class="form-group">
+              <input type="text" class="form-control"  name="ket" />
+           </div>
+         </div>
+        <div class="col-sm-7"></div>
+        </div>
+      <div class="row">
+         <div class="col-sm-2">
+           <h5 class="text-right">Kode Soal Matematika</h5>
+         </div>
+         <div class="col-sm-3">
+           <div class="form-group">
+              <input type="text" class="form-control"  name="mat" />
+           </div>
+         </div>
+         <div class="col-sm-7"></div>
+      </div>
+      <div class="row">
+         <div class="col-sm-2">
+           <h5 class="text-right">Kode Soal Sains</h5>
+         </div>
+         <div class="col-sm-3">
+           <div class="form-group">
+              <input type="text" class="form-control" name="ipa" />
+           </div>
+         </div>
+         <div class="col-sm-7"></div>
+      </div>
+      <div class="row">
+         <div class="col-sm-2">
+           <h5 class="text-right">Kode Soal B. Indonesia</h5>
+         </div>
+         <div class="col-sm-3">
+           <div class="form-group">
+              <input type="text" class="form-control" name="ind" />
+           </div>
+         </div>
+         <div class="col-sm-7"></div>
+      </div>
+      <div class="row">
+         <div class="col-sm-2">
+           <h5 class="text-right">Kode Soal B. Inggris</h5>
+         </div>
+         <div class="col-sm-3">
+           <div class="form-group">
+              <input type="text" class="form-control" name="ing" />
+           </div>
+         </div>
+         <div class="col-sm-7"></div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-2">
+           <div class="form-group">
+              <input type="submit" class="btn btn-primary" value="SUBMIT"/>
+           </div>
+        </div>
+        <div class="col-sm-8"></div>
+      </div>
+    </form>
+</div>
+{% endblock %}

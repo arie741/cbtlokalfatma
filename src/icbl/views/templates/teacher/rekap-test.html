@@ -1,0 +1,119 @@
+{% extends "icbl/views/templates/base.html" %}
+
+{% block content %}
+<script>
+  var prob=[];
+  var vtotal=0;
+  var sb1='{{data}}';
+  sb1=sb1.replace(/&quot;/g, '"');
+  sb=JSON.parse(sb1);
+
+  function kirim(){
+     var s='[',vval=0;
+     for (i=0;i < prob.length;i++){
+         vval=Number(prob[i].js);
+         if (vval > 0) {
+           s+='{:kode "' + prob[i].kode + '", :bobot "' + vval + '"}';
+         }
+     }
+     s+=']';
+     document.pf.tests.value = s;
+     document.getElementById('pf').submit();
+   }
+
+  function send_HTML1 (id,content){
+     var idtest=document.getElementById(id);
+     idtest.innerHTML = content;
+  }
+  function writeContent(){
+      //document.getElementById('title').innerHTML=cont;
+      var cnt="";
+      for (i=0;i<sb.length;i++){
+          cnt+='<tr>';
+          cnt+='<td>'+sb[i].kode+'</td>';
+          cnt+='<td>'+sb[i].pelajaran+'</td>';
+          cnt+='<td>'+sb[i].keterangan+'</td>';
+          cnt+='<td><button onClick=add("'+sb[i].kode+'")>Pilih</button></td>';
+
+          cnt+='</tr>';
+      }
+    send_HTML1('tests',cnt);
+  }
+
+  function refresh_tprob(){
+        var rt='';
+        for (i=0;i<prob.length;i++){
+            rt+='<tr>'
+            rt+='<td>'+ prob[i].kode +'</td>';
+            rt+='<td><input type="text" value='+ prob[i].js +' id="num' + i + '" onchange=update('+ i +') /></td>';
+            rt+='<td><button onClick=rem('+ i +')>HAPUS</button></td>';
+            rt+='</tr>';
+        }
+        rt+='<tr><td>Total</td><td><input  type="text" value='+vtotal+' id="total" name="total" disabled></td><td></td></tr>';
+        rt+='<tr><td></td><td><button onClick="kirim()">KIRIM</button></td></tr>';
+        send_HTML1('asoal',rt);
+    }
+
+    function add(kd){
+        prob.splice(prob.length,0,{"kode":kd, "js":0});
+        refresh_tprob();
+    }
+
+     function retotal(){
+        vtotal=0;
+        for (i=0;i<prob.length;i++){
+            vtotal+=Number(prob[i].js);
+        }
+        document.getElementById('total').value=vtotal;
+    }
+
+    function rem(idx){
+        prob.splice(idx,1);
+        retotal();
+        refresh_tprob();
+    }
+
+    function update(idx){
+       var vval=document.getElementById('num'+idx).value;
+       prob[idx].js=vval;
+       retotal();
+       //refresh_tprob();
+    }
+
+</script>
+
+<div class="container-fluid">
+<h2 align="center" id="judul">REKAPITULASI TEST</h2>
+<h2 align="center">SUBJEK: {{subjek}}</h2>
+<div class="row">
+  <div class="col-lg-6">
+    <table border="1">
+        <tr>
+          <td>KODE</td><td>PELAJARAN</td><td>KETERANGAN</td><td>PILIH</td>
+        </tr>
+      <tbody id="tests">
+      </tbody>
+    </table>
+  </div>
+  <div class="col-lg-6">
+    <table border="1">
+      <tr>
+        <td>KODE</td><td>BOBOT</td><td>HAPUS</td>
+      </tr>
+      <tbody id="asoal">
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+    <form method="POST" action="/teacher-save-rekap" name="pf" id="pf">
+      <input type="hidden" name="subjek" value="{{subjek}}">
+      <input type="hidden" name="tests">
+    </form>
+</div>
+<script>
+  writeContent();
+  //document.getElementById('judul').innerHTML=sb1;
+</script>
+{% endblock %}

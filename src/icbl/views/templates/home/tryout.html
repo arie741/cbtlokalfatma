@@ -1,0 +1,525 @@
+{% extends "icbl/views/templates/basesoal.html" %}
+
+{% block content %}
+
+<script>
+    var path='{{path}}';
+    var vnis='{{user}}';
+    var ns=[],nj=[],nu=[],npt=[],nsou=[];
+    var nupto='{{nupto}}';
+    var jumpil='{{data.jumpil}}';
+    var tabel="",prekode="",id="";
+    prekode='{{kodeto}}'.substring(0,1);
+    if (prekode == "B"){
+      tabel = "/bankproset/";
+      id = '{{data.kodepel}}';
+    } else {
+      tabel = "/proset/";
+      id = '{{data.id}}';
+    }
+
+    {% for vns in nsoal %} //no soal
+        ns.push({{vns}});
+    {% endfor %}
+
+    {% for vnj in njenis %} // jenis soal
+        nj.push({{vnj}});
+    {% endfor %}
+
+    for (i=0;i<nupto.length;i++){
+      nu[i]=nupto.substring(i,i+1);
+    }
+
+    {% if npretext %}
+      {% for vpt in npretext %} //pretext or wacana
+        npt.push('{{vpt}}');
+      {% endfor %}
+    {% else %}
+      for (i=0;i<jumsoal;i++){ //pretext or wacana
+        npt.push("-");
+      }
+    {% endif %}
+
+    {% if nsound %}
+      {% for vsou in nsound %} //pretext or wacana
+          nsou.push('{{vsou}}');
+      {% endfor %}
+    {% else %}
+      for (i=0;i<jumsoal;i++){ //pretext or wacana
+        nsou.push("-");
+      }
+    {% endif %}
+
+    //{% for vpt in npretext %} // pretext soal
+    //    npt.push('{{vpt}}');
+    //{% endfor %}
+    //
+    //{% for vsou in nsound %} // sound soal
+    //    nsou.push('{{vsou}}');
+    //{% endfor %}
+
+    var no=1;
+    var jsoal={{data.jsoal}};
+    var jwaktu={{data.waktu}}*60;
+    //var jwaktu=10;
+    var kode='{{data.kode}}';
+    var jwb =[];
+    for (i=0;i<jsoal;i++){
+        jwb[i]="-";
+    }
+    localStorage.nis=vnis;
+    localStorage.ns=JSON.stringify(ns);
+    localStorage.nj=JSON.stringify(nj);
+    localStorage.nu=JSON.stringify(nu);
+    localStorage.npt=JSON.stringify(npt);
+    localStorage.nsou=JSON.stringify(nsou);
+    localStorage.jsoal=jsoal;
+    localStorage.jwaktu=jwaktu;
+    localStorage.jumpil=jumpil;
+    localStorage.jwb=JSON.stringify(jwb);
+    localStorage.kode='{{kodeto}}';
+    localStorage.id=id;
+    localStorage.tbl=tabel;
+
+    function darkbg(){
+      if (document.getElementById("bg").className == "soal-background-dark"){
+        document.getElementById("bg").className = "";
+        document.getElementById("ans-table").setAttribute("style", "color:#000000");
+      } else {
+        document.getElementById("bg").className = "soal-background-dark";
+        document.getElementById("ans-table").setAttribute("style", "color:#ffffff");
+      }
+    }
+
+    function save_ls(){
+       localStorage.jwaktu=jwaktu;
+       localStorage.jwb=JSON.stringify(jwb);
+    }
+
+    function wDOM(id,cnt){
+        document.getElementById(id).innerHTML=cnt;
+    }
+
+    function func(jw){
+        var vno=no-1;
+        var so="o"+vno;
+        var cnt=no+" ("+jw+")";
+        wDOM(so,cnt);
+        wDOM("jsn"+vno,jw);
+        jwb[vno]=jw;
+        save_ls();
+
+        var ansl = 'ABCDES-';
+        for(i=0; i<ansl.length;i++){
+            document.getElementById('ans-' + ansl[i]).classList.remove('answered');
+            document.getElementById('ans-'+ jw).classList.add('answered');
+        }
+
+    }
+
+    function get_resp(urla,funct)
+            {
+            var xmlhttp;
+            if (window.XMLHttpRequest)
+              {// code for IE7+, Firefox, Chrome, Opera, Safari
+              xmlhttp=new XMLHttpRequest();
+              }
+            else
+              {// code for IE6, IE5
+              xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+              }
+            xmlhttp.onreadystatechange=function()
+              {
+              if (xmlhttp.readyState==4 && xmlhttp.status==200)
+                {
+                    funct(xmlhttp.responseText);
+                }
+              }
+            xmlhttp.open("GET",urla,true);
+            xmlhttp.send();
+            }
+
+     function get_soal1(urla) {
+        var scnt='',vupto='',ju=0, vab="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        //Wacana
+        if (npt[no-1] != "-"){
+          urla_pretext = path + tabel + id + '/' + {{data.kode}} + '/' + npt[no-1] + '.png';
+          document.getElementById("pretext").innerHTML='<div><img src='+urla_pretext+'></div>';
+        }else{
+          document.getElementById("pretext").innerHTML='<div></div>';
+        }
+        // Sound atawa Suara
+        if (nsou[no-1] != "-"){
+          urla_sound = path + tabel + id + '/' + {{data.kode}} + '/' + nsou[no-1];
+          document.getElementById("sound").innerHTML='<div><audio src='+urla_sound+' controls></div>';
+        }else{
+          document.getElementById("sound").innerHTML='<div></div>';
+        }
+
+        document.getElementById("soal").innerHTML='<div><img src='+urla+'></div>';
+        scnt+='<div class="btn-group">';
+        if (nj[no-1] == "1"){
+          scnt+='<button id="ans-A" class="btn btn-lg btn-bluegreen-bordered" onClick=func("A")>A</button>';
+          scnt+='<button id="ans-B" class="btn btn-lg btn-bluegreen-bordered" onClick=func("B")>B</button>';
+          scnt+='<button id="ans-C" class="btn btn-lg btn-bluegreen-bordered" onClick=func("C")>C</button>';
+          scnt+='<button id="ans-D" class="btn btn-lg btn-bluegreen-bordered" onClick=func("D")>D</button>';
+          if (jumpil == "5"){
+            scnt+='<button id="ans-E" class="btn btn-lg btn-bluegreen-bordered" onClick=func("E")>E</button>';
+          }
+          scnt+='<button id="ans--" class="btn btn-lg btn-bluegreen-bordered" onClick=func("-")>-</button>';
+        }
+        if (nj[no-1] == "2"){
+          scnt+='<button id="ans-B" class="btn btn-lg btn-bluegreen-bordered" onClick=func("B")>BENAR</button>';
+          scnt+='<button id="ans-S" class="btn btn-lg btn-bluegreen-bordered" onClick=func("S")>SALAH</button>';
+          scnt+='<button id="ans--" class="btn btn-lg btn-bluegreen-bordered" onClick=func("-")>-</button>';
+        }
+        if (nj[no-1] == "3"){
+          vupto=nu[no-1];
+          ju=vupto.charCodeAt(0)-65;
+          for (i=0;i<=ju;i++){
+            scnt+='<button id="ans-'+ vab.substring(i,i+1) +'" class="btn btn-lg btn-bluegreen-bordered" onClick=func("'+vab.substring(i,i+1)+'")>'+ vab.substring(i,i+1) +'</button>';
+          }
+          scnt+='<button id="ans--" class="btn btn-lg btn-bluegreen-bordered" onClick=func("-")>-</button>';
+        }
+        scnt+='</div>';
+        document.getElementById("pilihan1").innerHTML=scnt;
+     }
+
+    function fback(){
+      var vno=0;
+      if (no>1){
+        no-=1;vno=no-1;
+          get_soal1(path + tabel + id + '/' + {{data.kode}} + '/' + ns[vno] + '.png');
+
+        for (i=1;i<=jsoal;i++){
+          document.getElementById("n"+i).classList = "n-inactive"
+        }
+        var td = document.getElementById("n" + no);
+        td.classList = "n-active";
+
+        var ansl = 'ABCDES-';
+
+        for(i=0; i<ansl.length;i++){
+            document.getElementById('ans-' + ansl[i]).classList.remove('answered');
+            document.getElementById('ans-'+ jwb[no-1]).classList.add('answered');
+        }
+      }
+    }
+    function fnext(){
+      var vno=0;
+      if (no<jsoal){
+        no+=1;vno=no-1;
+        get_soal1(path + tabel + id + '/' + {{data.kode}} + '/' + ns[vno] + '.png');
+
+        for (i=1;i<=jsoal;i++){
+          document.getElementById("n"+i).classList = "n-inactive"
+        }
+        var td = document.getElementById("n" + no);
+        td.classList = "n-active";
+
+        var ansl = 'ABCDES-';
+
+        for(i=0; i<ansl.length;i++){
+            document.getElementById('ans-' + ansl[i]).classList.remove('answered');
+            document.getElementById('ans-'+ jwb[no-1]).classList.add('answered');
+        }
+      }
+    }
+    function ganti_nomer(ano){
+        no=ano;
+        get_soal1(path + tabel + id + '/' + {{data.kode}} + '/' + ns[no-1] + '.png');
+
+        for (i=1;i<=jsoal;i++){
+          document.getElementById("n"+i).classList = "n-inactive"
+        }
+        var td = document.getElementById("n" + no);
+        td.classList = "n-active";
+
+        var ansl = 'ABCDES-';
+
+        for(i=0; i<ansl.length;i++){
+            document.getElementById('ans-' + ansl[i]).classList.remove('answered');
+            document.getElementById('ans-'+ jwb[no-1]).classList.add('answered');
+        }
+    }
+
+    function countercol (n, skala) {
+      nscale = n/skala *100;
+      if (0 <= nscale && nscale < 80){
+        document.getElementById('snilaim').classList='s-bronze';
+      } else if (80 <= nscale && nscale < 90) {
+        document.getElementById('snilaim').classList='s-silver';
+      } else if (90 <= nscale && nscale <= 100){
+        document.getElementById('snilaim').classList='s-gold';
+      }
+    }
+
+    function counter (nval, n){
+      var val = 0;
+      var elem = document.getElementById('snilaim');
+      var reptr = setInterval(counterf, 1800/n);
+      function counterf (){
+        if (val >= nval){
+          clearInterval(reptr);
+          elem.innerHTML = nval;
+          countercol(nval, n);
+        } else {
+          elem.innerHTML = val;
+          val++;
+          countercol(val, n);
+        }
+      }
+    }
+
+    function habis_waktu() {
+        var vby='<button class="btn btn-warning" data-toggle="modal" data-target=".bs-example-modal-sm" onClick="simpan()">KIRIM</button>';
+        var vbn='<a href="/"><button class="btn btn-warning">BATAL</button></a>';
+        taktif(true);
+        wDOM('pesan','<span class="bg-danger text-danger">Waktu Habis !</span><br><span class="bg-warning text-warning">Klik tombol KIRIM untuk mengirim jawaban ke server, atau BATAL jika tidak mau mengirim ke server!</span><br>');
+        wDOM('ya_button',vby);
+        wDOM('no_button',vbn);
+    }
+
+    function pewaktu(wkt){
+        var myTimeout = setTimeout(habis_waktu, (wkt*1000)+2000);
+        var myVar = setInterval(countdown, 1000);
+
+        function countdown(){
+            var jam=0,sjam=0,mnt=0,dtk=0;
+            var str_waktu="";
+            var swaktu='';
+            jam=Math.floor(jwaktu/3600);
+            sjam=jwaktu % 3600;
+            mnt=Math.floor(sjam/60);
+            dtk=sjam % 60;
+            str_waktu=jam+":"+mnt+":"+dtk;
+            wDOM('waktu',str_waktu);
+            jwaktu-=1;
+
+            if ((jwaktu % 60) == 0){
+                 save_ls();
+            }
+            if (jwaktu <= -1){
+                clearInterval(myVar);
+            }
+        }
+    }
+
+    function taktif(bol){
+        document.getElementById("back_button").disabled=bol;
+        document.getElementById("next_button").disabled=bol;
+        document.getElementById("sls_button").disabled=bol;
+        document.getElementById("sel_no").disabled=bol;
+    }
+
+    function selesai(){
+        var vby='<button class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-sm" onClick="simpan()">YA</button>';
+        var vbn='<button class="btn btn-success" onClick="batal()">TIDAK</button>';
+        taktif(true);
+        wDOM('pesan','<span class="bg-danger text-danger">Yakin selesai mengerjakan Ujian ?  </span>');
+        wDOM('ya_button',vby);
+        wDOM('no_button',vbn);
+    }
+
+    function batal(){
+        taktif(false);
+        wDOM('pesan',"");
+        wDOM('ya_button',"");
+        wDOM('no_button',"");
+    }
+
+    function simpan(){
+        var jwsem=[];
+        var vurl="";
+        for (i=0;i<jsoal;i++){
+            jwsem[ns[i]-1]=jwb[i];
+        }
+        var vjwb=jwsem.toString();
+        vjwb=vjwb.replace(/,/g, "");
+        vurl="/simpan/"+'{{kodeto}}'+"/"+vjwb+"/"+vnis;
+        taktif(true);
+        wDOM('pesan','<span class="bg-warning text-warning"> Tunggu.... lagi memproses data ! </span>');
+        get_resp(vurl,res_pesan);
+        //wDOM('title',vjwb);
+    }
+
+    function res_pesan(data){
+        var vby='<a href="/home-logout"><button class="btn btn-success">Logout</button></a>';
+        var vbn='<a href="/"><button>Home</button></a>';
+        var vdata=JSON.parse(data);
+        if (vdata.nilai == null){
+           wDOM('pesan', '<span class="bg-danger text-danger">Gagal Simpan Data ! Coba lagi dengan menekan tombol Selesai </span>');
+           taktif(false);
+           wDOM('ya_button',"");
+           wDOM('no_button',"");
+        }else {
+           var snilai = vdata.nilai/vdata.skala * 100;
+
+           wDOM('pesan', '<span class="bg-success text-success"> Data telah disimpan di server. Nilai Ujian Kamu: <b id="snilai">'+vdata.nilai+'</b>   </span>');
+           var nres = '<div><b id="snilaim">' + vdata.nilai+"</b></div>";
+           document.getElementById("mod-content").innerHTML = nres;
+           counter(vdata.nilai, vdata.skala);
+
+           if (snilai < 30){
+              document.getElementById('snilai').classList='s-bronze';
+              document.getElementById('bronze1').setAttribute('style','animation-name: star-op; animation-duration: 1s; animation-fill-mode: forwards;');
+           } else if (snilai < 60){
+              document.getElementById('snilai').classList='s-bronze';
+              document.getElementById('bronze1').setAttribute('style','animation-name: star-op; animation-duration: 1s; animation-fill-mode: forwards;');
+              document.getElementById('bronze2').setAttribute('style','animation-name: star-op; animation-duration: 1s; animation-delay: 0.5s; animation-fill-mode: forwards;');
+           } else if (snilai < 80){
+              document.getElementById('snilai').classList='s-bronze';
+              document.getElementById('bronze1').setAttribute('style','animation-name: star-op; animation-duration: 1s; animation-fill-mode: forwards;');
+              document.getElementById('bronze2').setAttribute('style','animation-name: star-op; animation-duration: 1s; animation-delay: 0.5s; animation-fill-mode: forwards;');
+              document.getElementById('bronze3').setAttribute('style','animation-name: star-op; animation-duration: 1s; animation-delay: 1s; animation-fill-mode: forwards;');
+           } else if (snilai < 90){
+              document.getElementById('snilai').classList='s-silver';
+              document.getElementById('bronze1').setAttribute('style','animation-name: star-op; animation-duration: 1s; animation-fill-mode: forwards;');
+              document.getElementById('bronze2').setAttribute('style','animation-name: star-op; animation-duration: 1s; animation-delay: 0.5s; animation-fill-mode: forwards;');
+              document.getElementById('bronze3').setAttribute('style','animation-name: star-op; animation-duration: 1s; animation-delay: 1s; animation-fill-mode: forwards;');
+              document.getElementById('silver').setAttribute('style','animation-name: star-ex; animation-duration: 0.6s; animation-delay: 1.6s; animation-fill-mode: forwards;');
+           } else if (snilai <= 100){
+              document.getElementById('snilai').classList='s-gold';
+              document.getElementById('bronze1').setAttribute('style','animation-name: star-op; animation-duration: 1s; animation-fill-mode: forwards;');
+              document.getElementById('bronze2').setAttribute('style','animation-name: star-op; animation-duration: 1s; animation-delay: 0.5s; animation-fill-mode: forwards;');
+              document.getElementById('bronze3').setAttribute('style','animation-name: star-op; animation-duration: 1s; animation-delay: 1s; animation-fill-mode: forwards;');
+              document.getElementById('silver').setAttribute('style','animation-name: star-ex; animation-duration: 0.6s; animation-delay: 1.6s; animation-fill-mode: forwards;');
+              document.getElementById('gold').setAttribute('style','animation-name: star-ex2; animation-duration: 0.6s; animation-delay: 2.1s; animation-fill-mode: forwards;');
+           }
+
+           wDOM('ya_button',vby);
+           wDOM('no_button','');
+           localStorage.clear();
+        }
+    }
+
+</script>
+<div class="container">
+
+
+<div class="panel panel-bluegreen bordered">
+   <div class="panel-heading">
+     <h1 class="text-center" id="title">
+       USBK - Kode Soal:{{kodeto}} - {{data.pelajaran}} - {{data.keterangan}}
+     </h1>
+  </div>
+</div>
+<div class="row">
+  <div class="panel panel-primary timer-panel">
+    <div class="panel-body text-center">
+      Sisa Waktu: <strong id="waktu"></strong>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-12 nm">
+    <b class="pull-right">Nightmode</b>
+    <input type="checkbox" class="pull-right" name="" value="" onclick="darkbg()">
+
+  </div>
+</div>
+<br>
+<div class="row">
+  <div class="col-sm-12">
+    <div class="select-table">
+
+    <select class="form-control form-tracker pull-left" id="sel_no" onchange="ganti_nomer()">
+      <script>
+      for (i=0;i<jsoal;i++){
+      document.write('<option id="o'+i+'" value='+i+'>'+(i+1)+' ('+jwb[i]+')</option>');
+      }
+      </script>
+    </select>
+
+    <br>
+    </div>
+<div class="row">
+  <div class="col-sm-12">
+    <a href ="#" class="arrow-left pull-left" onClick="fback()"></a>
+    <table id="ans-table" class="answer-table pull-left">
+        <script>
+        var tbrow = Math.ceil(jsoal/30);
+        var rlimit = 30;
+        function hrem (x, y){
+          if((x-y)>=0){
+            return x-y;
+          } else {
+            return 0;
+          }
+        }
+        for (j=0; j<tbrow;j++){
+          for(i=1+(j*rlimit);i<=jsoal-hrem(jsoal, (j+1)*rlimit);i++){
+            document.write('<td id="n' + i+ '"><a href="#ans-table" onclick="ganti_nomer('+ i +')">' + i + '</a></td>');
+          }
+          document.write('<tr id="r'+j+'"></tr>');
+          for(k=1+(j*rlimit);k<=jsoal-hrem(jsoal, (j+1)*rlimit);k++){
+            document.getElementById('r'+(Math.ceil(k/rlimit)-1)).innerHTML += '<td id="jsn'+ (k-1) + '">' + jwb[k-1] + '</td>';
+          }
+          document.getElementById("n1").className = "n-active";
+        }
+        </script>
+    </table>
+    <a href ="#" class="arrow-right pull-left" onClick="fnext()"></a>
+  </div>
+
+</div>
+  </div>
+</div>
+  <br>
+   <div id="pretext"></div>
+   <div id="sound" style="overflow:hidden; width:210px;"></div>
+   <div id="soal"></div>
+   <div class="row">
+     <div class="col-sm-12">
+       <div id="pilihan1" class="pull-left"></div>
+       <div class="btn-group pull-left nextback">
+        <button class="btn btn-bluegreen-bordered" id="back_button" name="button_back" onClick="fback()">BACK</button>
+        <button class="btn btn-bluegreen-bordered" id="next_button" name="button_next" onClick="fnext()">NEXT</button>
+      </div>
+     </div>
+
+   </div>
+   <div><h3 id="jawab"></h3></div>
+
+<div class="row">
+<script>
+    get_soal1(path + tabel + id + '/' + {{data.kode}} + '/' + ns[0] + '.png');
+    pewaktu(jwaktu);
+</script>
+</div>
+<br>
+<div class="row">
+  <div class="col-sm-12">
+    <button class="btn btn-lg btn-brightgreen" id="sls_button" onClick="selesai()">SELESAI</button>
+  </div>
+  <div class="col-sm-12">
+    <span id="pesan"></span><span id="ya_button"></span><span id="no_button"></span>
+  </div>
+
+</div>
+<br>
+<br>
+
+</div>
+<!--MODAL-->
+<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+        <i id="bronze1" class="fa fa-star fa-lg s-bronze" aria-hidden="true"></i>
+        <i id="bronze2" class="fa fa-star fa-lg s-bronze" aria-hidden="true"></i>
+        <i id="bronze3" class="fa fa-star fa-2x s-bronze" aria-hidden="true"></i>
+        <i id="silver" class="fa fa-star fa-3x s-silver" aria-hidden="true"></i>
+        <i id="gold" class="fa fa-star fa-4x s-gold" aria-hidden="true"></i>
+        <br>
+        <div id="mod-content"></div>
+        <br>
+        <a href="/home-logout"><button class="btn btn-success">Logout</button></a>
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endblock %}
+

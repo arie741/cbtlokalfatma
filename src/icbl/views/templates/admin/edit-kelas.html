@@ -1,0 +1,46 @@
+{% extends "icbl/views/templates/base.html" %}
+
+{% block content %}
+
+    <div class="container">
+      <div class="row">
+        <h4 class="text-primary">
+          Edit Nama Kelas!
+        </h4>
+      </div>
+      <form method="POST" action="/admin-update-kelas">
+      <div class="row">
+         <div class="col-sm-2">
+           <h5 class="text-right">Kode:</h5>
+         </div>
+         <div class="col-sm-1">
+           <div class="form-group">
+              <input type="text" class="form-control"  value="{{datum.nomer}}" disabled>
+           </div>
+         </div>
+         <div class="col-sm-9"></div>
+      </div>
+      <div class="row">
+         <div class="col-sm-2">
+           <h5 class="text-right">Nama Kelas</h5>
+         </div>
+         <div class="col-sm-3">
+           <div class="form-group">
+              <input type="text" class="form-control" name="namakelas" value="{{datum.namakelas}}">
+           </div>
+         </div>
+         <div class="col-sm-7"></div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-2">
+           <div class="form-group">
+              <input type="submit" class="btn btn-primary" value="UPDATE"/>
+           </div>
+        </div>
+        <div class="col-sm-8"></div>
+      </div>
+      <input type="hidden" name="nomer" value="{{datum.nomer}}" />
+    </form>
+</div>
+{% endblock %}

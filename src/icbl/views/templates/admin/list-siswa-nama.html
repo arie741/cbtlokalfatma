@@ -1,0 +1,77 @@
+{% extends "icbl/views/templates/base.html" %}
+
+{% block content %}
+    <script>
+       var page={{page}};
+       var cdata={{cdata}};
+
+       function newurut(){
+         document.pf1.newpage.value=0;
+         document.pf1.urut.value=document.getElementById('urut').value;
+         document.getElementById("pf1").submit();
+       }
+       function newpage(angka){
+         page=page+angka;
+         document.pf1.newpage.value=page;
+         document.pf1.urut.value=document.getElementById('urut').value;
+         document.getElementById("pf1").submit();
+       }
+    </script>
+
+    <h2 align="center">EDIT SISWA</h2>
+    <h3 align="center">Klik NIS untuk menyunting data siswa!</h3>
+    <form method="POST" action="/do-edit-siswa">
+    <div align="center">
+      <select id="urut" onchange="newurut()">
+        <script>
+          if ("{{urut}}" == "nama"){
+            document.write('<option value="nama" selected>NAMA</option>');
+          }else{
+            document.write('<option value="nama">NAMA</option>');
+          }
+          if ("{{urut}}" == "nis"){
+            document.write('<option value="nis" selected>NIS</option>');
+          }else{
+            document.write('<option value="nis">NIS</option>');
+          }
+          if ("{{urut}}" == "kelas"){
+            document.write('<option value="kelas" selected>KELAS</option>');
+          }else{
+            document.write('<option value="kelas">KELAS</option>');
+          }
+        </script>
+      </select>
+    </div>
+    <table border="1" align="center">
+        <tr><td>NIS</td><td>NAMA</td><td>KELAS</td></tr>
+        {% for datum in data %}
+        <tr>
+            <td><input type="submit" name="nis" value="{{datum.nis}}" /></td>
+            <td>{{datum.nama}}</td>
+            <td>{{datum.kelas}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    </form>
+    <div align="center">
+      <script>
+        if (page == 0){
+          document.write('<button disabled>PREV</button>');
+        }else{
+          document.write('<button onclick="newpage(-1)">PREV</button>');
+        }
+        document.write(' halaman '+ (page + 1));
+        if (((page+1) * 15) >= cdata){
+          document.write('<button disabled>NEXT</button>');
+        }else{
+          document.write('<button onclick="newpage(1)">NEXT</button>');
+        }
+      </script>
+    </div>
+    <form method="POST" action="/list-siswa-newpage" id="pf1" name="pf1">
+      <input type="hidden" name="urut">
+      <input type="hidden" name="newpage">
+      <input type="hidden" name="vnama" value="{{vnama}}">
+      <input type="hidden" name="cdata" value="{{cdata}}">
+    </form>
+{% endblock %}

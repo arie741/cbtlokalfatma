@@ -1,0 +1,10 @@
+{% extends "icbl/views/templates/base.html" %}
+
+{% block content %}
+    <form method="POST" action="/teacher-simpan-soal-html" target="_blank">
+    <textarea id="mytextarea" name="soal">Bikin Soal HTML</textarea>
+      Nama file<input type="text" name="namafile"/>
+      <input type="submit" value="SUBMIT" />
+    <input type="hidden" name="kode" value="{{kode}}">
+    </form>
+{% endblock %}

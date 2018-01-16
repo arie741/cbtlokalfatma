@@ -1,0 +1,17 @@
+{% extends "icbl/views/templates/base.html" %}
+
+{% block content %}
+    <h2 align="center">{{judul}}</h2>
+    <h3 align="center">Klik NIS untuk {{ket}} data guru!</h3>
+    <form method="POST" action={{action}}>
+    <table border="1" align="center">
+        <tr><td>ID</td><td>NAMA</td></tr>
+        {% for datum in data %}
+        <tr>
+            <td><input type="submit" name="id" value="{{datum.id}}" /></td>
+            <td>{{datum.nama}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    </form>
+{% endblock %}

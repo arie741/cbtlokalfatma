@@ -1,0 +1,52 @@
+{% extends "icbl/views/templates/base.html" %}
+
+{% block content %}
+<script>
+    function kirim(){
+       var kun="";
+       var vc="";
+       var jen="";
+       var vupto="";
+       for (i=1;i<={{jsoal}};i++){
+          vc=document.getElementById('no' + i).value;
+          if (vc.charCodeAt(0) >= 65 && vc.charCodeAt(0)<=122){
+            vc=vc.toUpperCase();
+          } else {
+            vc="-";
+          }
+          kun+=vc;
+       }
+       document.pf.kunci.value=kun;
+       document.pf.kode.value={{kode}};
+       document.getElementById("pf").submit();
+    }
+</script>
+<div class="container">
+<h2>
+  Buat Kunci Kode Soal {{kode}}
+</h2>
+     <table border="1">
+        <tr><td>No</td><td>Jenis</td><td>S/D</td><td>Kunci</td></tr>
+        <script>
+          var cnt='';
+          for(i=1;i<={{jsoal}};i++){
+                cnt+='<tr><td>'+i+</td>';
+                cnt+='<td><select id=sel_'+i+'>';
+                cnt+='<option value="1" selected>ABCD</option>';
+                cnt+='<option value="2">Benar/Salah</option>';
+                cnt+='<option value="3">Menjodohkan</option>';
+                cnt+='</select></td>';
+                cnt+='<td><input type="text" size="1" id=no'+i+'></td></tr>';
+                document.write(cnt);
+                }
+       </script>
+    </table>
+    <br>
+    <button type="button" class="btn btn-primary" onClick="kirim()">KIRIM</button>
+  <form method="post" action="/teacher-save-kunci" name="pf" id="pf">
+    <input type="hidden" name="kunci">
+    <input type="hidden" name="kode">
+  </form>
+
+</div>
+{% endblock %}

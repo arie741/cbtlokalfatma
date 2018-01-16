@@ -1,0 +1,21 @@
+{% extends "icbl/views/templates/base.html" %}
+
+{% block content %}
+
+    <div class="container">
+      <div class="row">
+        <h2 class="text-primary" align="center">
+          KODE PEMBAHASAN: {{kodebahas}}
+        </h2>
+      </div>
+      <form method="POST" action="{{action}}" name="pf" id="pf">
+        <div class="row">
+          <div align="center">
+            <input type="submit" class="btn btn-primary" value="MULAI PEMBAHASAN"/>
+          </div>
+        </div>
+        <input type="hidden" name="kode" value="{{kode}}">
+        <input type="hidden" name="kodebahas" value=""{{kodebahas}}"">
+      </form>
+    </div>
+{% endblock %}

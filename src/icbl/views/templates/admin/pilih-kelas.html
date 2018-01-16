@@ -1,0 +1,18 @@
+{% extends "icbl/views/templates/base.html" %}
+
+{% block content %}
+    <h3 align="center">DAFTAR KELAS PADA TEST DENGAN KODE {{kodesoal}}</h3>
+    <h4 align="center">Klik Kelas untuk memilih kelas!</h4>
+    <form method="POST" action="{{action}}">
+    <table border="1" align="center">
+        <tr><td>KELAS</td></tr>
+        {% for kls in kelas %}
+        <tr>
+            <td align="center"><input type="submit" name="kelas" value="{{kls}}" /></td>
+        </tr>
+        {% endfor %}
+    </table>
+      <input type="hidden" name="kodesoal" value="{{kodesoal}}" />
+      <input type="hidden" name="kosek" value="{{kosek}}" />
+    </form>
+{% endblock %}

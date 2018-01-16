@@ -1,0 +1,83 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ujian Berbasis Komputer</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- <link href="css/bootstrap.theme.css" rel="stylesheet"> -->
+    <script src="jquery/jquery-1.12.2.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+  <div>
+
+    <h4 class="text-default">
+      Kode Soal: {{datum.kode}} - {{datum.keterangan}}
+    </h4>
+  </div>
+  <table>
+    <script>
+     var path='{{path}}';
+     var npt=[],nsou=[];
+     var kodesoal='{{kodesoal}}';
+
+    {% if npretext %}
+      {% for vpt in npretext %} //pretext or wacana
+        npt.push('{{vpt}}');
+      {% endfor %}
+    {% else %}
+      for (i=0;i<jumsoal;i++){ //pretext or wacana
+        npt.push("-");
+      }
+    {% endif %}
+
+    {% if nsound %}
+      {% for vsou in nsound %} //pretext or wacana
+          nsou.push('{{vsou}}');
+      {% endfor %}
+    {% else %}
+      for (i=0;i<jumsoal;i++){ //pretext or wacana
+        nsou.push("-");
+      }
+    {% endif %}
+    for (i=1;i<={{datum.jsoal}};i++){
+      var simg=path + '/bankproset/'+'{{datum.kodepel}}'+'/'+kodesoal+'/'+ i + '.png';
+      var cnt='<tr><td style="vertical-align: top; padding: 5px">'+i+'.</td><td>';
+      if (npt[i-1] !="-"){
+         cnt+='<img src='+path+'/bankproset/'+'{{datum.kodepel}}'+'/'+kodesoal+'/'+npt[i-1]+'.png><br>';
+      }
+      if (nsou[i-1] !="-"){
+         urla_sound = path + '/bankproset/'+ '{{datum.kodepel}}' + '/' + kodesoal + '/' + nsou[i-1];
+         cnt+='<div><audio src='+urla_sound+' controls></div><br>';
+      }
+      cnt+='<img src='+simg+'></td></tr>';
+      //document.write('<tr><td style="vertical-align: top; padding: 5px">'+i+'.</td><td ><img src='+simg+'></td></tr>');
+     document.write(cnt);
+    }
+  </script>
+  </table>
+  <br><br>
+  <h2>
+    KUNCI
+  </h2>
+  <table border="1">
+    <script>
+       var skunci='{{datum.kunci}}',cnt='<tr>';
+       for(i=1;i<={{datum.jsoal}};i++){
+         cnt+='<td>'+i+'</td>';
+       }
+       cnt+='</tr><tr>';
+       for(i=1;i<={{datum.jsoal}};i++){
+         cnt+='<td>'+skunci.substring(i-1,i)+'</td>';
+       }
+      cnt+='</tr>';
+      document.write(cnt);
+    </script>
+
+  </table>
+</div>
+
+</body>
+</html>

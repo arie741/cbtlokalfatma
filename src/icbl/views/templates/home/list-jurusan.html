@@ -1,0 +1,84 @@
+{% extends "icbl/views/templates/basebg.html" %}
+{% block content %}
+<script>
+  function wDOM(id,cnt){
+          document.getElementById(id).innerHTML=cnt;
+      }
+  function get_resp(urla,funct){
+            var xmlhttp;
+            if (window.XMLHttpRequest)
+              {// code for IE7+, Firefox, Chrome, Opera, Safari
+              xmlhttp=new XMLHttpRequest();
+              }
+            else
+              {// code for IE6, IE5
+              xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+              }
+            xmlhttp.onreadystatechange=function()
+              {
+              if (xmlhttp.readyState==4 && xmlhttp.status==200)
+                {
+                    funct(xmlhttp.responseText);
+                }
+              }
+            xmlhttp.open("GET",urla,true);
+            xmlhttp.send();
+            }
+  function get_sekolah(){
+      var perg=document.getElementById("perg").value;
+      var vurl="/get-jurusan/" + perg + "/" + {{kelompok}} + "/" + {{ntot}};
+      get_resp(vurl,list_jurusan);
+  }
+  function list_jurusan(data){
+    var vdata=JSON.parse(data);
+    var cnt="";
+    var ldata=vdata.length;
+    cnt=cnt + "<h4>Daftar jurusan/fakultas yang lulus</h4>";
+    cnt=cnt + "<table border='1'><tr><td>Kode</td><td>Jurusan</td><td>Prediksi PG</td></tr>";
+    for (i=0;i<ldata;i++){
+      cnt=cnt + "<tr><td>" + vdata[i].kodejur + "</td><td>" + vdata[i].jurusan + "</td><td>" + vdata[i].nm + "</td></tr>";
+    }
+    cnt=cnt + "</table>";
+     wDOM("list_jurusan",cnt);
+  }
+  function hapusjur(){
+    wDOM("list_jurusan","");
+  }
+</script>
+
+<div class="panel panel-default">
+    <div class="panel-body">
+      <div class="row">
+        <div align="center">
+          <div class="text-default">
+            <h4>
+              Prosen TKPA: {{ntkpa}}<br>
+              Prosen {{sainsoshum}}: {{nipaorips}}<br>
+              Prosen total: {{ntot}}
+            </h4>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div align="center">
+          <div class="text-default">
+            <select id="perg" onchange="hapusjur()">
+              {% for uni in univ %}
+                 <option  value="{{uni.ptn}}">{{uni.ptn}}</option>
+              {% endfor %}
+            </select>
+            <button class="btn btn-success" onclick="get_sekolah()">LIHAT JURUSAN</button>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div align="center">
+          <div class="text-default" id="list_jurusan">
+
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
+{% endblock %}

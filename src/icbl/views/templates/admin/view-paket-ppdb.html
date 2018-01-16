@@ -1,0 +1,21 @@
+{% extends "icbl/views/templates/base.html" %}
+
+{% block content %}
+    <h3 align="center">DAFTAR PAKET PPDB SMA</h3>
+    <h4 align="center">Klik KODE untuk Memilih PAKET!</h4>
+    <form method="POST" action="{{action}}">
+    <table border="1" align="center">
+        <tr><td>KODE</td><td>NAMA PAKET</td><td>Mat</td><td>Sains</td><td>Ind</td><td>Ing</td></tr>
+        {% for datum in data %}
+        <tr>
+            <td><input type="submit" name="kode" value="{{datum.kode}}" /></td>
+            <td>{{datum.keterangan}}</td>
+            <td>{{datum.kodemat}}</td>
+            <td>{{datum.kodeipa}}</td>
+            <td>{{datum.kodeind}}</td>
+            <td>{{datum.kodeing}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    </form>
+{% endblock %}

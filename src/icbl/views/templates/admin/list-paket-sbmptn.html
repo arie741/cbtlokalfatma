@@ -1,0 +1,25 @@
+{% extends "icbl/views/templates/base.html" %}
+
+{% block content %}
+    <h3 align="center">DAFTAR PAKET SBMPTN</h3>
+    <h4 align="center">Klik KODE untuk aksi lebih lanjut!</h4>
+    <form method="POST" action="/admin-edit-paket-sbmptn">
+    <table border="1" align="center">
+        <tr><td>KODE</td><td>NAMA PAKET</td><td>KODE TKPA</td><td>KODE SAINS/SOSHUM</td><td>KELOMPOK</td>
+      </tr>
+        {% for datum in data %}
+        <tr>
+            <td><input type="submit" name="kode" value="{{datum.kode}}" /></td>
+            <td>{{datum.keterangan}}</td>
+            <td>{{datum.kodetkpa}}</td>
+            <td>{{datum.kodeipaorips}}</td>
+            {% if datum.kelompok = 1 %}
+              <td>IPA</td>
+            {% else %}
+              <td>IPS</td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </table>
+    </form>
+{% endblock %}

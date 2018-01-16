@@ -1,0 +1,100 @@
+{% extends "icbl/views/templates/base.html" %}
+
+{% block content %}
+<script>
+        function update(){
+            document.pf.ket.value=document.getElementById('ket').value;
+            document.pf.mat.value=document.getElementById('mat').value;
+            document.pf.ipa.value=document.getElementById('ipa').value;
+            document.pf.ind.value=document.getElementById('ind').value;
+            document.pf.ing.value=document.getElementById('ing').value;
+            document.getElementById("pf").submit();
+        }
+  function hapus(){
+    document.getElementById("pf1").submit();
+  }
+</script>
+<div class="container-fluid">
+  <div class="row">
+     <div class="col-sm-2">
+        <h5 class="text-right">Nama Paket:</h5>
+     </div>
+     <div class="col-sm-5">
+        <div class="form-group">
+          <input type="text" class="form-control" id="ket" value="{{datum.keterangan}}">
+        </div>
+     </div>
+     <div class="col-sm-5"></div>
+  </div>
+  <div class="row">
+     <div class="col-sm-2">
+        <h5 class="text-right">Kode Soal Matematika</h5>
+     </div>
+     <div class="col-sm-5">
+        <div class="form-group">
+          <input type="text" class="form-control" id="mat" value="{{datum.kodemat}}">
+        </div>
+     </div>
+     <div class="col-sm-5"></div>
+  </div>
+  <div class="row">
+     <div class="col-sm-2">
+        <h5 class="text-right">Kode Soal Sains</h5>
+     </div>
+     <div class="col-sm-5">
+        <div class="form-group">
+          <input type="text" class="form-control" id="ipa" value="{{datum.kodeipa}}">
+        </div>
+     </div>
+     <div class="col-sm-5"></div>
+  </div>
+  <div class="row">
+     <div class="col-sm-2">
+        <h5 class="text-right">Kode Soal B. Indonesia</h5>
+     </div>
+     <div class="col-sm-5">
+        <div class="form-group">
+          <input type="text" class="form-control" id="ind" value="{{datum.kodeind}}">
+        </div>
+     </div>
+     <div class="col-sm-5"></div>
+  </div>
+  <div class="row">
+     <div class="col-sm-2">
+        <h5 class="text-right">Kode Soal B. Inggris</h5>
+     </div>
+     <div class="col-sm-5">
+        <div class="form-group">
+          <input type="text" class="form-control" id="ing" value="{{datum.kodeing}}">
+        </div>
+     </div>
+     <div class="col-sm-5"></div>
+  </div>
+  <div class="row">
+    <div class="col-sm-2 text-right"></div>
+    <div class="col-sm-3">
+      <button class="btn btn-primary" type="submit" onClick="update()">
+        UPDATE PAKET PPDB
+       </button>
+    </div>
+    <div class="col-sm-3">
+      <button class="btn btn-danger" type="submit" onClick="hapus()">
+        DELETE PAKET PPDB!
+       </button>
+    </div>
+    <div class="col-sm-2"></div>
+  </div>
+</div>
+<form method="POST" action="/admin-update-paket-ppdb" name="pf" id="pf">
+    <input type="hidden" name="kode" value="{{datum.kode}}">
+    <input type="hidden" name="ket">
+    <input type="hidden" name="mat">
+    <input type="hidden" name="ipa">
+    <input type="hidden" name="ind">
+    <input type="hidden" name="ing">
+</form>
+<form method="POST" action="/admin-delete-paket-ppdb" name="pf1" id="pf1">
+    <input type="hidden" name="kode" value="{{datum.kode}}">
+</form>
+
+{% endblock %}

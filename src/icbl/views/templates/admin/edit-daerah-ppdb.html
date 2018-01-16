@@ -1,0 +1,42 @@
+{% extends "icbl/views/templates/base.html" %}
+
+{% block content %}
+
+<div class="container-fluid">
+  <form method="POST" action="/admin-update-daerah-ppdb">
+
+  <div class="row">
+     <div class="col-sm-2">
+        <h5 class="text-right">Kode Daerah:</h5>
+     </div>
+     <div class="col-sm-5">
+        <div class="form-group">
+          <input type="text" class="form-control" value="{{datum.kode}}" disabled />
+        </div>
+     </div>
+     <div class="col-sm-5"></div>
+  </div>
+
+  <div class="row">
+     <div class="col-sm-2">
+        <h5 class="text-right">Nama Daerah:</h5>
+     </div>
+     <div class="col-sm-5">
+        <div class="form-group">
+          <input type="text" class="form-control" name="daerah" value="{{datum.daerah}}" />
+        </div>
+     </div>
+     <div class="col-sm-5"></div>
+  </div>
+  <div class="row">
+    <div class="col-sm-2 text-right"></div>
+    <div class="col-sm-3">
+      <input class="btn btn-primary" type="submit" value="UPDATE" />
+    </div>
+    <div class="col-sm-7"></div>
+  </div>
+</div>
+<input type="hidden" name="kode" value="{{datum.kode}}" />
+</form>
+
+{% endblock %}

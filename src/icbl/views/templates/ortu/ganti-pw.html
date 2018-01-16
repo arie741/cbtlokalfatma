@@ -1,0 +1,71 @@
+{% extends "icbl/views/templates/basebg.html" %}
+{% block content %}
+  <script>
+  function kirim(){
+  document.pf.pwlama.value=document.getElementById('pwlama').value;
+  document.pf.pwbaru1.value=document.getElementById('pwbaru1').value;
+  document.pf.pwbaru2.value=document.getElementById('pwbaru2').value;
+  //document.pf.kategori.value=kat;
+  document.getElementById("pf").submit();
+  }
+  </script>
+
+  <div class="panel panel-default panel-kodesoal h-middle">
+    <div class="panel-body">
+      <div class="row">
+        <div align="center">
+          <div class="text-default">
+            <strong>Ganti Password!</strong>
+
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="form-group">
+          <div class="col-sm-2"></div>
+          <div class="col-sm-8"><input type="password" class="form-control text-center" id="pwlama"  placeholder="Password Lama"></div>
+          <div class="col-sm-2"></div>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="form-group">
+          <div class="col-sm-2"></div>
+          <div class="col-sm-8"><input type="password" class="form-control text-center" id="pwbaru1"  placeholder="Password Baru"></div>
+          <div class="col-sm-2"></div>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="form-group">
+          <div class="col-sm-2"></div>
+          <div class="col-sm-8"><input type="password" class="form-control text-center" id="pwbaru2" placeholder="Password Baru"></div>
+          <div class="col-sm-2"></div>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-6" align="center">
+          <button class="btn btn-bluegreen" onClick="kirim()">KIRIM</button>
+        </div>
+        <div class="col-sm-3"></div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4"></div>
+        <div class="col-sm-4" >
+          <div align="center">
+            <span class="label label-danger">{{error}}</span>
+          </div>
+        </div>
+        <div class="col-sm-4"></div>
+      </div>
+    </div>
+  </div>
+  <form method="POST" action="/ortu-ganti-pw1" name="pf" id="pf">
+    <input type="hidden" name="pwlama">
+    <input type="hidden" name="pwbaru1">
+    <input type="hidden" name="pwbaru2">
+  </form>
+{% endblock %}

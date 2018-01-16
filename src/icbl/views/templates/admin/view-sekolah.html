@@ -1,0 +1,18 @@
+{% extends "icbl/views/templates/base.html" %}
+
+{% block content %}
+    <h3 align="center">PILIH SEKOLAH</h3>
+    <form method="POST" action="{{action}}">
+    <table border="1" align="center">
+        <tr><td>KODE</td><td>NAMA SEKOLAH</td></tr>
+        <tr><td colspan="2" align="center"><input type=submit name="kosek" value="SEMUA" /></td></tr>
+        {% for datum in data %}
+        <tr>
+            <td><input type="submit" name="kosek" value="{{datum.kode}}" /></td>
+            <td>{{datum.nasek}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <input type="hidden" name="kodesoal" value="{{kodesoal}}" />
+    </form>
+{% endblock %}

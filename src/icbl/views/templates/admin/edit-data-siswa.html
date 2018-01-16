@@ -1,0 +1,126 @@
+{% extends "icbl/views/templates/base.html" %}
+
+{% block content %}
+<script>
+        function update(){
+            document.pf.nisbaru.value=document.getElementById('nisbaru').value;
+            document.pf.nama.value=document.getElementById('nama').value;
+            document.pf.kelas.value=document.getElementById('kelas').value;
+            document.pf.email.value=document.getElementById('email').value;
+            document.pf.pass.value=document.getElementById('pass').value;
+            document.pf.passortu.value=document.getElementById('passortu').value;
+            document.getElementById("pf").submit();
+        }
+  function hapus(){
+    document.getElementById("pf1").submit();
+  }
+</script>
+<div class="container-fluid">
+  <div class="row">
+     <div class="col-sm-2">
+        <h5 class="text-right">NIS:</h5>
+     </div>
+     <div class="col-sm-5">
+        <div class="form-group">
+          <input type="text" class="form-control" id="nisbaru" value="{{datum.nis}}">
+        </div>
+     </div>
+     <div class="col-sm-5"></div>
+  </div>
+  <div class="row">
+     <div class="col-sm-2">
+        <h5 class="text-right">NAMA:</h5>
+     </div>
+     <div class="col-sm-5">
+        <div class="form-group">
+          <input type="text" class="form-control" id="nama" value="{{datum.nama}}">
+        </div>
+     </div>
+     <div class="col-sm-5"></div>
+  </div>
+  <div class="row">
+     <div class="col-sm-2">
+        <h5 class="text-right">KELAS:</h5>
+     </div>
+     <div class="col-sm-5">
+        <div class="form-group">
+          <!--
+          <select id="kelas">
+             {% for kls in daftarkelas %}
+                <script>
+                  if ("{{datum.kelas}}" == "{{kls.namakelas}}"){
+                    document.write('<option value="{{kls.namakelas}}" selected>{{kls.namakelas}}</option>')
+                  }else{
+                    document.write('<option value="{{kls.namakelas}}">{{kls.namakelas}}</option>')
+                  }
+                </script>
+             {% endfor %}
+          </select>
+          -->
+          <input type="text" class="form-control" id="kelas" value="{{datum.kelas}}">
+        </div>
+     </div>
+     <div class="col-sm-5"></div>
+  </div>
+  <div class="row">
+     <div class="col-sm-2">
+        <h5 class="text-right">Email:</h5>
+     </div>
+     <div class="col-sm-5">
+        <div class="form-group">
+          <input type="text" class="form-control" id="email" value="{{datum.email}}">
+        </div>
+     </div>
+     <div class="col-sm-5"></div>
+  </div>
+  <div class="row">
+     <div class="col-sm-2">
+        <h5 class="text-right">Password:</h5>
+     </div>
+     <div class="col-sm-5">
+        <div class="form-group">
+          <input type="text" class="form-control" id="pass" value="{{datum.password}}">
+        </div>
+     </div>
+     <div class="col-sm-5"></div>
+  </div>
+  <div class="row">
+     <div class="col-sm-2">
+        <h5 class="text-right">PassOrtu:</h5>
+     </div>
+     <div class="col-sm-5">
+        <div class="form-group">
+          <input type="text" class="form-control" id="passortu" value="{{datum.passortu}}">
+        </div>
+     </div>
+     <div class="col-sm-5"></div>
+  </div>
+  <div class="row">
+    <div class="col-sm-2 text-right"></div>
+    <div class="col-sm-3">
+      <button class="btn btn-primary" type="submit" onClick="update()">
+        UPDATE DATA SISWA
+       </button>
+    </div>
+    <div class="col-sm-3">
+      <button class="btn btn-danger" type="submit" onClick="hapus()">
+        DELETE DATA SISWA!
+       </button>
+    </div>
+    <div class="col-sm-2"></div>
+  </div>
+</div>
+<form method="POST" action="/update-data-siswa" name="pf" id="pf">
+    <input type="hidden" name="nisbaru">
+    <input type="hidden" name="nama">
+    <input type="hidden" name="kelas">
+    <input type="hidden" name="email">
+    <input type="hidden" name="pass">
+    <input type="hidden" name="passortu">
+    <input type="hidden" name="nislama" value="{{datum.nis}}">
+</form>
+<form method="POST" action="/delete-data-siswa" name="pf1" id="pf1">
+    <input type="hidden" name="nislama" value="{{datum.nis}}">
+</form>
+
+{% endblock %}

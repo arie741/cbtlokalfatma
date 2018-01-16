@@ -1,0 +1,102 @@
+{% extends "icbl/views/templates/basemagang.html" %}
+
+{% block content %}
+    <script>
+        function kirim(){
+            document.pf.nopel.value=document.getElementById('nopel').value;
+            document.pf.ket.value=document.getElementById('ket').value;
+            document.pf.jsoal.value=document.getElementById('jsoal').value;
+            document.pf.waktu.value=document.getElementById('waktu').value;
+            document.pf.jumpil.value=document.getElementById('jumpil').value;
+            document.getElementById("pf").submit();
+        }
+    </script>
+    <div class="container-fluid">
+      <div class="row">
+         <div class="col-sm-2">
+           <h5 class="text-right">Pelajaran:</h5>
+         </div>
+         <div class="col-sm-3">
+           <div class="form-group">
+              <select id="nopel">
+                {% for datum in data %}
+                <option value="{{datum.nomer}}">{{datum.pelajaran}}</option>
+                {% endfor %}
+             </select>
+           </div>
+         </div>
+         <div class="col-sm-7"></div>
+      </div>
+      <div class="row">
+         <div class="col-sm-2">
+           <h5 class="text-right">Keterangan:</h5>
+         </div>
+         <div class="col-sm-5">
+           <div class="form-group">
+              <input type="text" class="form-control" id="ket">
+           </div>
+        </div>
+        <div class="col-sm-5"></div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2">
+          <h5 class="text-right">Jumlah Soal:</h5>
+        </div>
+        <div class="col-sm-1">
+           <div class="form-group">
+              <input type="text" class="form-control" id="jsoal">
+           </div>
+        </div>
+        <div class="col-sm-9"></div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2">
+          <h5 class="text-right">Waktu:</h5>
+        </div>
+        <div class="col-sm-1">
+           <div class="form-group">
+              <input type="text" class="form-control" id="waktu">
+           </div>
+        </div>
+        <div class="col-sm-9"></div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2">
+          <h5 class="text-right">Jumlah Pilihan:</h5>
+        </div>
+        <div class="col-sm-1">
+           <div class="form-group">
+              <select id="jumpil">
+                <option value="5">5</option>
+                <option value="4">4</option>
+                <option value="0">0</option>
+              </select>
+           </div>
+        </div>
+        <div class="col-sm-9"></div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-2">
+           <div class="form-group">
+              <button type="button" class="btn btn-primary" onClick="kirim()">KIRIM</button>
+           </div>
+        </div>
+        <div class="col-sm-8"></div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-2">
+           <h5 class="bg-danger text-danger">{{error}}
+        </div>
+        <div class="col-sm-8"></div>
+      </div>
+    </div>
+    <form method="POST" action="/adminmagang-buat-proset" name="pf" id="pf">
+        <input type="hidden" name="nopel">
+        <input type="hidden" name="ket">
+        <input type="hidden" name="jsoal">
+        <input type="hidden" name="waktu">
+        <input type="hidden" name="jumpil">
+    </form>
+{% endblock %}

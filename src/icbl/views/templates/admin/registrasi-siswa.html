@@ -1,0 +1,74 @@
+{% extends "icbl/views/templates/base.html" %}
+
+{% block content %}
+
+    <div class="container">
+      <div class="row">
+        <h4 class="text-primary">
+          REGISTRASI SISWA!
+        </h4>
+      </div>
+      <form method="POST" action="/admin-registrasi-siswa">
+      <div class="row">
+         <div class="col-sm-2">
+           <h5 class="text-right">NIS</h5>
+         </div>
+         <div class="col-sm-3">
+           <div class="form-group">
+              <input type="text" class="form-control"  name="nis" value="{{nis}}" />
+           </div>
+         </div>
+         <div class="col-sm-7"></div>
+      </div>
+      <div class="row">
+         <div class="col-sm-2">
+           <h5 class="text-right">NAMA</h5>
+         </div>
+         <div class="col-sm-3">
+           <div class="form-group">
+              <input type="text" class="form-control" name="nama" value="{{namaku}}" />
+           </div>
+         </div>
+         <div class="col-sm-7"></div>
+      </div>
+      <div class="row">
+         <div class="col-sm-2">
+           <h5 class="text-right">KELAS</h5>
+         </div>
+         <div class="col-sm-3">
+           <div class="form-group">
+              <input type="text" class="form-control" name="kelas" value="{{kelas}}" />
+           </div>
+         </div>
+         <div class="col-sm-7"></div>
+      </div>
+      <div class="row">
+         <div class="col-sm-2">
+           <h5 class="text-right">EMAIL</h5>
+         </div>
+         <div class="col-sm-3">
+           <div class="form-group">
+              <input type="text" class="form-control" name="email" value="{{email}}" />
+           </div>
+         </div>
+         <div class="col-sm-7"></div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-2">
+           <div class="form-group">
+              <input type="submit" class="btn btn-primary" value="SUBMIT"/>
+           </div>
+        </div>
+        <div class="col-sm-8"></div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-2">
+           <span class="label label-danger">{{error}}</span>
+        </div>
+        <div class="col-sm-8"></div>
+      </div>
+    </form>
+</div>
+{% endblock %}

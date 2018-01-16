@@ -1,0 +1,37 @@
+{% extends "icbl/views/templates/basebg.html" %}
+
+{% block content %}
+
+    <script>
+        var vkode=localStorage.kode;
+        function kirim(vpf){
+            document.pf.kode.value=vkode;
+            document.getElementById(vpf).submit();
+        }
+        function kirim1(vpf){
+            localStorage.clear();
+            document.getElementById(vpf).submit();
+        }
+    </script>
+
+<div class="row lstore-alert">
+  <div class="col-md-3"></div>
+  <div class="col-md-6">
+    <div class="alert alert-warning">
+      <h4 class="text-center">
+      <strong>Peringatan!</strong> Ada ujian dengan kode <strong><script>document.write(vkode)</script></strong> yang belum selesai anda kerjakan!
+      </h4>
+      <div align="center">
+          <button class="btn btn-success btn-lg" onClick="kirim('pf')">Lanjutkan</button>
+          <br><br>
+          <button class="btn btn-danger btn-lg" onClick="kirim1('pf1')">Abaikan</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<form method="POST" action="/home-tryout-lanjutan" name="pf" id="pf">
+  <input type="hidden" name="kode" id="kode">
+</form>
+<form method="POST" action="/home-tryout-baru" name="pf1" id="pf1"></form>
+{% endblock %}

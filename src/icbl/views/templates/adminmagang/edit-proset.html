@@ -1,0 +1,176 @@
+{% extends "icbl/views/templates/basemagang.html" %}
+
+{% block content %}
+<script>
+        function kirim(){
+            //document.pf.pel.value=document.getElementById('pel').value;
+            document.pf.ket.value=document.getElementById('ket').value;
+            document.pf.jsoal.value=document.getElementById('jsoal').value;
+            document.pf.waktu.value=document.getElementById('waktu').value;
+            document.pf.jumpil.value=document.getElementById('jumpil').value;
+            document.pf.acak.value=document.getElementById('acak').value;
+            document.pf.status.value=document.getElementById('status').value;
+            document.pf.skala.value=document.getElementById('skala').value;
+            document.pf.nbenar.value=document.getElementById('nbenar').value;
+            document.pf.nsalah.value=document.getElementById('nsalah').value;
+            document.getElementById("pf").submit();
+        }
+    </script>
+    <div class="container">
+      <div class="row">
+        <h4 class="text-primary">
+          Silahkan sunting Proset!
+        </h4>
+      </div>
+      <div class="row">
+         <div class="col-sm-2">
+           <h5 class="text-right">Kode:</h5>
+         </div>
+         <div class="col-sm-1">
+           <div class="form-group">
+              <input type="text" class="form-control"  value="{{kode}}" disabled />
+           </div>
+         </div>
+         <div class="col-sm-9"></div>
+      </div>
+      <div class="row">
+         <div class="col-sm-2">
+           <h5 class="text-right">K.Pelajaran:</h5>
+         </div>
+         <div class="col-sm-3">
+           <div class="form-group">
+              <input type="text" class="form-control" id="kodepel" value="{{datum.kodepel}}" disabled/>
+           </div>
+         </div>
+         <div class="col-sm-7"></div>
+      </div>
+      <div class="row">
+         <div class="col-sm-2">
+           <h5 class="text-right">Keterangan:</h5>
+         </div>
+         <div class="col-sm-5">
+           <div class="form-group">
+              <input type="text" class="form-control" id="ket" value="{{datum.keterangan}}" />
+           </div>
+        </div>
+        <div class="col-sm-5"></div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2">
+          <h5 class="text-right">Jumlah Soal:</h5>
+        </div>
+        <div class="col-sm-1">
+           <div class="form-group">
+              <input type="text" class="form-control" id="jsoal" value="{{datum.jsoal}}" />
+           </div>
+        </div>
+        <div class="col-sm-9"></div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2">
+          <h5 class="text-right">Waktu:</h5>
+        </div>
+        <div class="col-sm-1">
+           <div class="form-group">
+              <input type="text" class="form-control" id="waktu" value="{{datum.waktu}}" />
+           </div>
+        </div>
+        <div class="col-sm-9"></div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2">
+          <h5 class="text-right">Jumlah Pilihan:</h5>
+        </div>
+        <div class="col-sm-1">
+           <div class="form-group">
+              <input type="text" class="form-control" id="jumpil" value="{{datum.jumpil}}" />
+           </div>
+        </div>
+        <div class="col-sm-9"></div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2">
+          <h5 class="text-right">Skala:</h5>
+        </div>
+        <div class="col-sm-1">
+           <div class="form-group">
+              <input type="text" class="form-control" id="skala" value="{{datum.skala}}" />
+           </div>
+        </div>
+        <div class="col-sm-9"></div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2">
+          <h5 class="text-right">Benar:</h5>
+        </div>
+        <div class="col-sm-1">
+           <div class="form-group">
+              <input type="text" class="form-control" id="nbenar" value="{{datum.nbenar}}" />
+           </div>
+        </div>
+        <div class="col-sm-9"></div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2">
+          <h5 class="text-right">Salah:</h5>
+        </div>
+        <div class="col-sm-1">
+           <div class="form-group">
+              <input type="text" class="form-control" id="nsalah" value="{{datum.nsalah}}" />
+           </div>
+        </div>
+        <div class="col-sm-9"></div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2">
+          <h5 class="text-right">Acak:</h5>
+        </div>
+        <div class="col-sm-1">
+           <div class="form-group">
+              <input type="text" class="form-control" id="acak" value="{{datum.acak}}" />
+           </div>
+        </div>
+        <div class="col-sm-9"></div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2">
+          <h5 class="text-right">Status:</h5>
+        </div>
+        <div class="col-sm-1">
+           <div class="form-group">
+              <input type="text" class="form-control" id="status" value="{{datum.status}}" />
+           </div>
+        </div>
+        <div class="col-sm-9"></div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-2">
+           <div class="form-group">
+              <button type="button" class="btn btn-primary" onClick="kirim()">KIRIM</button>
+           </div>
+        </div>
+        <div class="col-sm-8"></div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-2">
+           <h5 class="bg-danger text-danger">{{error}}
+        </div>
+        <div class="col-sm-8"></div>
+      </div>
+    </div>
+    <form method="POST" action="/adminmagang-update-proset" name="pf" id="pf">
+        <input type="hidden" name="kode" value="{{kode}}">
+        <input type="hidden" name="ket">
+        <input type="hidden" name="jsoal">
+        <input type="hidden" name="waktu">
+        <input type="hidden" name="jumpil">
+        <input type="hidden" name="acak">
+        <input type="hidden" name="status">
+        <input type="hidden" name="skala">
+        <input type="hidden" name="nbenar">
+        <input type="hidden" name="nsalah">
+    </form>
+
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "icbl/views/templates/base.html" %}
+
+{% block content %}
+    <h2 align="center">DAFTAR PROSET</h2>
+    <h3 align="center">Klik KODE untuk memilih proset!</h3>
+    <form method="POST" action="{{action}}" target="{{target}}">
+    <table border="1" align="center">
+        <tr><td>KODE</td><td>PELAJARAN</td><td>KETERANGAN</td><td>J. SOAL</td><td>WAKTU</td><td>STATUS</td></tr>
+        {% for datum in data %}
+        <tr>
+            <td><input type="submit" name="kode" value="{{kset}}{{datum.kode}}" /></td>
+            <td>{{datum.pelajaran}}</td>
+            <td>{{datum.keterangan}}</td>
+            <td>{{datum.jsoal}}</td>
+            <td>{{datum.waktu}}</td>
+            <td>{{datum.status}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    </form>
+{% endblock %}

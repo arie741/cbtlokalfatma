@@ -1,0 +1,109 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ujian Sekolah Berbasis Komputer</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap.theme.css" rel="stylesheet">
+    <script src="jquery/jquery-1.12.2.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="css/custom.css">
+</head>
+<body class="login-background">
+<!--
+<script>
+   function kirim1(){
+    var btn=document.getElementById("activity").value;
+    document.getElementById("pf"+btn).submit();
+   }
+</script>
+-->
+{% if user %}
+{% if status = 4 %}
+  <div class="panel panel-info">
+    <div class="panel-heading">
+      <h4 class="text-center">
+      Selamat Datang {{nama}} !
+      </h4>
+    </div>
+  </div>
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+       <ul class="nav navbar-nav navbar-left">
+         <li><a href="/home-lihat-hasil">HASIL TEST</a></li>
+         <li><a href="/home-sim-ppdb">SIMULASI PPDB SMA</a></li>
+         <li><a href="/home-sim-sbmptn">SIMULASI SBMPTN</a></li>
+         <li><a href="/home-input-nomer">IKUT PEMBAHASAN</a></li>
+
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="/home-ganti-pw">GANTI PASSWORD</a></li>
+         <li><a href="/home-logout">LOGOUT</a></li>
+      </ul>
+
+    </div>
+  </nav>
+{% endif %}
+
+{% if status = 5 %}
+  <div class="panel panel-info">
+    <div class="panel-heading">
+      <h4 class="text-center">
+      Selamat Datang Orangtua {{nama}} !
+      </h4>
+    </div>
+  </div>
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+       <ul class="nav navbar-nav navbar-left">
+         <li><a href="/home-lihat-hasil">HASIL TEST</a></li>
+         <li><a href="/home-sim-ppdb">SIMULASI PPDB SMA</a></li>
+         <li><a href="/home-sim-sbmptn">SIMULASI SBMPTN</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="/ortu-ganti-pw">GANTI PASSWORD</a></li>
+         <li><a href="/ortu-logout">LOGOUT</a></li>
+      </ul>
+
+    </div>
+  </nav>
+{% endif %}
+  <!--
+  <div class="row">
+        <div class="form-group">
+          <div align="center">
+            <select name="activity" id="activity">
+              <option value="1">LIHAT HASIL TEST</option>
+              <option value="2">SIMULASI PPDB SMA</option>
+              <option value="3">SIMULASI SBMPTN</option>
+              <option value="4">IKUT PEMBAHASAN</option>
+              <option value="5">GANTI PASSWORD</option>
+              <option value="6">KELUAR</option>
+            </select>
+            <button class="btn btn-success" type="submit" onClick="kirim1()">
+                KIRIM
+            </button>
+          </div>
+        </div>
+  </div>
+ <form method="POST" action="/home-ganti-pw" name="pf5" id="pf5">
+  </form>
+  <form method="POST" action="/home-lihat-hasil" name="pf1" id="pf1">
+  </form>
+  <form method="POST" action="/home-sim-sbmptn" name="pf3" id="pf3">
+  </form>
+  <form method="POST" action="/home-input-nomer" name="pf4" id="pf4">
+  </form>
+  <form method="POST" action="/home-sim-ppdb" name="pf2" id="pf2">
+  </form>
+  </form>
+  <form method="POST" action="/home-logout" name="pf6" id="pf6">
+  </form>
+ -->
+{% endif %}
+{% block content %}
+{% endblock %}
+
+</body>
+</html>

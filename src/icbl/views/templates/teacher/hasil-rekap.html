@@ -1,0 +1,19 @@
+{% extends "icbl/views/templates/base.html" %}
+
+{% block content %}
+    <h2 align="center">HASIL REKAP TEST</h2>
+    <h3 align="center">{{subjek}}</h3>
+    <form method="POST" action="/teacher-rekap-siswa">
+    <table border="1" align="center">
+        <tr><td>NIS</td><td>NAMA</td><td>NILAI</td></tr>
+        {% for datum in data %}
+        <tr>
+            <td><input type="submit" name="nis" value="{{datum.nis}}" /></td>
+            <td>{{datum.nama}}</td>
+            <td>{{datum.nilai}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+      <input type="hidden" name="kode" value="{{kode}}">
+    </form>
+{% endblock %}

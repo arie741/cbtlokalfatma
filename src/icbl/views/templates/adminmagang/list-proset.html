@@ -1,0 +1,22 @@
+{% extends "icbl/views/templates/basemagang.html" %}
+
+{% block content %}
+    <h3 align="center">DAFTAR PROSET KODE PELAJARAN {{kodepel}}</h3>
+    <h4 align="center">Klik KODE untuk aksi lebih lanjut!</h4>
+    <form method="POST" action="{{action}}" target="{{target}}">
+    <table border="1" align="center">
+        <tr><td>KODE</td><td>KETERANGAN</td><td>J. SOAL</td><td>WAKTU</td><td>STATUS</td></tr>
+        {% for datum in data %}
+        <tr>
+            <td><input type="submit" name="kode" value="M{{datum.kode}}" /></td>
+            <td>{{datum.keterangan}}</td>
+            <td>{{datum.jsoal}}</td>
+            <td>{{datum.waktu}}</td>
+            <td>{{datum.status}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <input type="hidden" name="kodepel" value="{{kodepel}}" />
+    <input type="hidden" name="ket" value="{{ket}}" />
+    </form>
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends "icbl/views/templates/basebg.html" %}
+{% block content %}
+  <script>
+  function kirim(){
+  document.pf.kodebahas.value=document.getElementById('kodebahas').value;
+  //document.pf.kategori.value=kat;
+  document.getElementById("pf").submit();
+  }
+  </script>
+
+  <div class="panel panel-default panel-kodesoal h-middle">
+    <div class="panel-body">
+      <div class="row">
+        <div align="center">
+          <div class="text-default">
+            <strong>Masukkan Kode Pembahasan!</strong>
+
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="form-group">
+          <div class="col-sm-4"></div>
+          <div class="col-sm-4"><input type="text" class="form-control text-center" id="kodebahas" value="{{kodebahas}}"></div>
+          <div class="col-sm-4"></div>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-6" align="center">
+          <button class="btn btn-bluegreen" onClick="kirim()">MASUK</button>
+        </div>
+        <div class="col-sm-3"></div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4"></div>
+        <div class="col-sm-4" >
+          <div align="center">
+            <span class="label label-danger">{{error}}</span>
+          </div>
+        </div>
+        <div class="col-sm-4"></div>
+      </div>
+    </div>
+  </div>
+  <form method="POST" action="/home-kodebahas" name="pf" id="pf">
+    <input type="hidden" name="kodebahas">
+  </form>
+{% endblock %}
