@@ -2,6 +2,7 @@
 
 {% block content %}
 <script>
+        var sesj = 0;
         function kirim(){
             //document.pf.pel.value=document.getElementById('pel').value;
             document.pf.ket.value=document.getElementById('ket').value;
@@ -23,6 +24,17 @@
             element.classList.add("hidden");
           }
         }
+
+        function delses(ses){
+          sesj -= 1;
+          $(ses).remove();
+        }
+
+        function addses(){
+          sesj += 1;
+          $("#sessioncol").append('<div class="row" id="sescolumn'+ sesj +'"><div class="col-sm-5"><div class="form-group"> Sekolah: <select name="sekolah1" id="sekolahses"> <option value="1">aasdsadsa</option> <option value="2">aidsahdu</option> <option value="3">aokdksaod</option> </select> </div></div><div class="col-sm-5"> <div class="form-group"> Kelas: <select name="kelas1" id="kelasses"> <option value="1">1</option> <option value="2">2</option> <option value="3">3</option> </select> </div></div><div class="col-sm-1"> <button onclick="delses('+ "'#sescolumn" + sesj + "'" +')">x</button> </div></div>');
+        }
+
     </script>
     <div class="container">
       <div class="row">
@@ -157,10 +169,10 @@
         <div class="col-sm-9"></div>
       </div>
       <div class="row hidden" id="sessions">
-        <div class="col-sm-6 col-sm-offset-2">
+        <div class="col-sm-6 col-sm-offset-2" id="sessioncol">
           <h4>Session</h4>
 
-          <div class="row sescolumn">
+          <div class="row" id="sescolumn1">
             <div class="col-sm-5">
               <div class="form-group">
                 Sekolah:
@@ -182,10 +194,14 @@
               </div>
             </div>
             <div class="col-sm-1">
-              <button>x</button>
+              <button onclick="delses('#sescolumn1')">x</button>
             </div>
           </div>
-          <button>+</button>
+        </div>
+        <div class="row">
+          <div class="col-sm-6 col-sm-offset-2">
+            <button onclick="addses()">+</button>
+          </div>
         </div>
       </div>
       <br>
