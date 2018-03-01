@@ -27,12 +27,12 @@
 
         function delses(ses){
           sesj -= 1;
-          $(ses).remove();
+          $('#sescolumn' + ses).remove();
         }
 
         function addses(){
           sesj += 1;
-          $("#sessioncol").append('<div class="row" id="sescolumn'+ sesj +'"> <div class="col-sm-8"> <div class="form-group"> Sekolah: <select name="sekolah'+ sesj +'" id="sekolahses'+ sesj +'">{% for datas in datsek %}<option value="{{datas.kode}}">{{datas.nasek}}</option>{% endfor %}</select> </div></div><div class="col-sm-3"> <div class="form-group"> Kelas: <select name="kelas'+ sesj +'" id="kelasses'+ sesj +'">{% for datak in datkel %}<option value="{{datak.nomer}}">{{datak.namakelas}}</option>{% endfor %}</select> </div></div><div class="col-sm-1"> <button onclick="delses('+ "'#sescolumn" + sesj + "'" +')">x</button> </div></div>');
+          $("#sessioncol").append('<div class="row" id="sescolumn'+ sesj +'"> <div class="col-sm-8"> <div class="form-group"> Sekolah: <select name="sekolah'+ sesj +'" id="sekolahses'+ sesj +'">{% for datas in datsek %}<option value="{{datas.kode}}">{{datas.nasek}}</option>{% endfor %}</select> </div></div><div class="col-sm-3"> <div class="form-group"> Kelas: <select name="kelas'+ sesj +'" id="kelasses'+ sesj +'">{% for datak in datkel %}<option value="{{datak.nomer}}">{{datak.namakelas}}</option>{% endfor %}</select> </div></div><div class="col-sm-1"> <button onclick="delses(' + sesj + ')">x</button> </div></div>');
         }
 
     </script>
@@ -194,7 +194,7 @@
               </div>
             </div>
             <div class="col-sm-1">
-              <button onclick="delses('#sescolumn1')">x</button>
+              <button onclick="delses('1')">x</button>
             </div>
           </div>
         </div>
