@@ -3,6 +3,8 @@
 {% block content %}
 <script>
         var sesj = 1;
+        var sesarray = [{num: sesj, kel: "0", sek: "0"}];
+
         function kirim(){
             //document.pf.pel.value=document.getElementById('pel').value;
             document.pf.ket.value=document.getElementById('ket').value;
@@ -26,14 +28,37 @@
         }
 
         function delses(ses){
-          sesj -= 1;
           $('#sescolumn' + ses).remove();
+          sesarray = $.grep(sesarray, function(a){
+              return a.num !== ses;
+          });
         }
 
         function addses(){
           sesj += 1;
-          $("#sessioncol").append('<div class="row" id="sescolumn'+ sesj +'"> <div class="col-sm-8"> <div class="form-group"> Sekolah: <select name="sekolah'+ sesj +'" id="sekolahses'+ sesj +'">{% for datas in datsek %}<option value="{{datas.kode}}">{{datas.nasek}}</option>{% endfor %}</select> </div></div><div class="col-sm-3"> <div class="form-group"> Kelas: <select name="kelas'+ sesj +'" id="kelasses'+ sesj +'">{% for datak in datkel %}<option value="{{datak.nomer}}">{{datak.namakelas}}</option>{% endfor %}</select> </div></div><div class="col-sm-1"> <button onclick="delses(' + sesj + ')">x</button> </div></div>');
+          $("#sessioncol").append('<div class="row" id="sescolumn'+ sesj +'"> <div class="col-sm-8"> <div class="form-group"> Sekolah: <select name="sekolah'+ sesj +'" id="sekolahses'+ sesj +'"><option value="0">Pilih Sekolah</option>{% for datas in datsek %}<option value="{{datas.kode}}">{{datas.nasek}}</option>{% endfor %}</select> </div></div><div class="col-sm-3"> <div class="form-group"> Kelas: <select name="kelas'+ sesj +'" id="kelasses'+ sesj +'"><option value="0">Pilih Kelas</option>{% for datak in datkel %}<option value="{{datak.nomer}}">{{datak.namakelas}}</option>{% endfor %}</select> </div></div><div class="col-sm-1"> <button onclick="delses(' + sesj + ')">x</button> </div></div>');
+          sesarray.push({num: sesj, kel: "0", sek: "0"});
         }
+
+        function changesek( n, newv ) {
+           for (var i in sesarray) {
+             if (sesarray[i].num == n) {
+                sesarray[i].sek = newv;
+                break;
+             }
+           }
+        }
+
+        function changekel( n, newv ) {
+           for (var i in sesarray) {
+             if (sesarray[i].num == n) {
+                sesarray[i].kel = newv;
+                break;
+             }
+           }
+        }
+
+
 
     </script>
     <div class="container">
@@ -177,6 +202,7 @@
               <div class="form-group">
                 Sekolah:
                 <select name="sekolah1" id="sekolahses1">
+                  <option value="0">Pilih Sekolah</option>
                   {% for datas in datsek %}
                   <option value="{{datas.kode}}">{{datas.nasek}}</option>
                   {% endfor %}
@@ -187,6 +213,7 @@
               <div class="form-group">
                 Kelas:
                 <select name="kelas1" id="kelasses1">
+                  <option value="0">Pilih Kelas</option>
                   {% for datak in datkel %}
                   <option value="{{datak.nomer}}">{{datak.namakelas}}</option>
                   {% endfor %}
