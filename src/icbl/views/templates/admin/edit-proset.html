@@ -5,6 +5,15 @@
         var sesj = 1;
         var sesarray = [{num: sesj, kel: "0", sek: "0"}];
 
+        function convertval(){
+          var sesval = [];
+          for (var i in sesarray) {
+            sesval.push("[" + sesarray[i].kel + ", " + sesarray[i].sek + "]");
+          }
+          var sesfin = sesval.join(', ');
+          return "[" + sesfin + "]";
+        }
+
         function kirim(){
             //document.pf.pel.value=document.getElementById('pel').value;
             document.pf.ket.value=document.getElementById('ket').value;
@@ -16,6 +25,7 @@
             document.pf.skala.value=document.getElementById('skala').value;
             document.pf.nbenar.value=document.getElementById('nbenar').value;
             document.pf.nsalah.value=document.getElementById('nsalah').value;
+            document.pf.sessions.value=convertval();
             document.getElementById("pf").submit();
         }
         function statuscheck(val){
@@ -260,6 +270,7 @@
         <input type="hidden" name="skala">
         <input type="hidden" name="nbenar">
         <input type="hidden" name="nsalah">
+        <input type="hidden" name="sessions">
     </form>
 
 {% endblock %}
