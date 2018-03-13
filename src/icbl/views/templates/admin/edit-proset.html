@@ -8,9 +8,9 @@
         function convertval(){
           var sesval = [];
           for (var i in sesarray) {
-            sesval.push("[" + sesarray[i].kel + ", " + sesarray[i].sek + "]");
+            sesval.push("[" + sesarray[i].kel + " " + sesarray[i].sek + "]");
           }
-          var sesfin = sesval.join(', ');
+          var sesfin = sesval.join(' ');
           return "[" + sesfin + "]";
         }
 

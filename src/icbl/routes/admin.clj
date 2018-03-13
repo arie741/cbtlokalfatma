@@ -218,7 +218,7 @@
         datkel (db/get-data "select * from kelas order by namakelas" 2)]
     (layout/render "admin/edit-proset.html" {:datum datum :kode kode :datsek datsek :datkel datkel})))
 
-(defn admin-update-proset [kode ket jsoal waktu jumpil skala nbenar nsalah acak status]
+(defn admin-update-proset [kode ket jsoal waktu jumpil skala nbenar nsalah acak status ses]
   (let [postkode (subs kode 1 (count kode))
         datum (db/get-data (str "select kunci,jenis,upto,pretext,sound,kodepel,status,kodex from bankproset where kode='" postkode "'") 1)
         oldkunci (datum :kunci)
@@ -269,7 +269,8 @@
                      :sound newsound
                      :skala (Integer/parseInt skala)
                      :nbenar (Integer/parseInt nbenar)
-                     :nsalah (Integer/parseInt nsalah)})
+                     :nsalah (Integer/parseInt nsalah)
+                     :sessions ses})
     (do
     (if (not= status oldstatus)
       (if (= status "0")
@@ -1084,8 +1085,8 @@
         (handle-admin-search-proset nopel ket "/admin-edit-proset" ""))
   (POST "/admin-edit-proset" [kode]
         (admin-edit-proset kode))
-  (POST "/admin-update-proset" req
-         (str req))
+  (POST "/admin-update-proset" [kode ket jsoal waktu jumpil skala nbenar nsalah acak status sessions]
+         (admin-update-proset kode ket jsoal waktu jumpil skala nbenar nsalah acak status sessions))
 
   (GET "/admin-upload-file" []
        (admin-search-proset "/admin-pilih-proset1"))
