@@ -36,7 +36,7 @@
 
         function addses(){
           sesj += 1;
-          $("#sessioncol").append('<div class="row" id="sescolumn'+ sesj +'"> <div class="col-sm-8"> <div class="form-group"> Sekolah: <select name="sekolah'+ sesj +'" id="sekolahses'+ sesj +'"><option value="0">Pilih Sekolah</option>{% for datas in datsek %}<option value="{{datas.kode}}">{{datas.nasek}}</option>{% endfor %}</select> </div></div><div class="col-sm-3"> <div class="form-group"> Kelas: <select name="kelas'+ sesj +'" id="kelasses'+ sesj +'"><option value="0">Pilih Kelas</option>{% for datak in datkel %}<option value="{{datak.nomer}}">{{datak.namakelas}}</option>{% endfor %}</select> </div></div><div class="col-sm-1"> <button onclick="delses(' + sesj + ')">x</button> </div></div>');
+          $("#sessioncol").append('<div class="row" id="sescolumn'+ sesj +'"> <div class="col-sm-8"> <div class="form-group"> Sekolah: <select name="sekolah'+ sesj +'" id="sekolahses'+ sesj +'" onchange="changesek(' + sesj + ' , this.value)"><option value="0">Pilih Sekolah</option>{% for datas in datsek %}<option value="{{datas.kode}}">{{datas.nasek}}</option>{% endfor %}</select> </div></div><div class="col-sm-3"> <div class="form-group"> Kelas: <select name="kelas'+ sesj +'" id="kelasses'+ sesj +'" onchange="changekel(' + sesj + ' , this.value)"><option value="0">Pilih Kelas</option>{% for datak in datkel %}<option value="{{datak.nomer}}">{{datak.namakelas}}</option>{% endfor %}</select> </div></div><div class="col-sm-1"> <button onclick="delses(' + sesj + ')">x</button> </div></div>');
           sesarray.push({num: sesj, kel: "0", sek: "0"});
         }
 
@@ -201,7 +201,7 @@
             <div class="col-sm-8">
               <div class="form-group">
                 Sekolah:
-                <select name="sekolah1" id="sekolahses1">
+                <select name="sekolah1" id="sekolahses1" onchange="changesek(1, this.value);">
                   <option value="0">Pilih Sekolah</option>
                   {% for datas in datsek %}
                   <option value="{{datas.kode}}">{{datas.nasek}}</option>
@@ -212,7 +212,7 @@
             <div class="col-sm-3">
               <div class="form-group">
                 Kelas:
-                <select name="kelas1" id="kelasses1">
+                <select name="kelas1" id="kelasses1" onchange="changekel(1, this.value);">
                   <option value="0">Pilih Kelas</option>
                   {% for datak in datkel %}
                   <option value="{{datak.nomer}}">{{datak.namakelas}}</option>
