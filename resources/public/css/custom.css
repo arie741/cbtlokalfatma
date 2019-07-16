@@ -140,7 +140,9 @@
 .n-active {
 	background-color: #42f4d7;
 }
-
+.n-active.answered {
+    background-color: #77b2a8 !important;
+}
 .nextback {
 	margin-left:10px;
 	margin-top:6px;

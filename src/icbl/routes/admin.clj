@@ -215,8 +215,9 @@
   (let [postkode (subs kode 1 (count kode))
         datum (db/get-data (str "select * from bankproset where kode='" postkode "'") 1)
         datsek (db/get-data "select * from sekolah order by nasek" 2)
-        datkel (db/get-data "select * from kelas order by namakelas" 2)]
-    (layout/render "admin/edit-proset.html" {:datum datum :kode kode :datsek datsek :datkel datkel})))
+        datkel (db/get-data "select * from kelas order by namakelas" 2)
+        datses (:sessions (db/get-data (str "select * from bankproset where kode='" postkode "'") 1))]
+    (layout/render "admin/edit-proset.html" {:datum datum :kode kode :datsek datsek :datkel datkel :datses datses})))
 
 (defn admin-update-proset [kode ket jsoal waktu jumpil skala nbenar nsalah acak status ses]
   (let [postkode (subs kode 1 (count kode))
